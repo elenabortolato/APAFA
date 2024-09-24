@@ -1,3 +1,3 @@
 # flexMSFA
 
-- simulation contains the code and results to reproduce figure 4
+- simulation.zip contains the code and results to reproduce figure 4
