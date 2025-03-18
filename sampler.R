@@ -165,8 +165,8 @@ Gibbs_Kernel=function(state){
   state$Lambda= t(state$tau_eta*t(state$Lambda_)) #sparse
   
   #6. update z
-  index(state$Lambda_) = c("j","h")
-  index(state$eta) = c("i", "h")
+  calucus::index(state$Lambda_) = c("j","h")
+  calucus::index(state$eta) = c("i", "h")
   eta_lam = einstein(state$eta, state$Lambda_, drop = F)  # n x p x k
   mu_eta = tcrossprod( state$eta,state$Lambda)
   mu_phi = tcrossprod( state$phi,state$Gamma)
@@ -204,8 +204,8 @@ Gibbs_Kernel=function(state){
   
   mu_eta = tcrossprod( state$eta,state$Lambda)
   ps_phi = state$phi_*state$ps
-  index(state$Gamma) = c("j", "h")
-  index(ps_phi) = c("i","h")
+  calucus::index(state$Gamma) = c("j", "h")
+  calucus::index(ps_phi) = c("i","h")
   phi_ps_gamma= (einstein( (ps_phi),(state$Gamma),drop = F))  # n x p x k
   
   mu=mu_eta+mu_phi
@@ -248,8 +248,8 @@ Gibbs_Kernel=function(state){
   mu_phi= tcrossprod(state$phi,state$Gamma)
   mu=mu_eta+mu_phi
   tau_phi =t(t(state$phi_)*state$tau_phi )
-  index(tau_phi) = c("i","h")
-  index(state$Gamma)=c("j", "h")
+  calucus::index(tau_phi) = c("i","h")
+  calucus::index(state$Gamma)=c("j", "h")
   
   phi_tau_gam = einstein(tau_phi,state$Gamma, drop = F)  # n x p x k
   for(h in 1:state$k){
@@ -477,8 +477,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   state$Lambda= t(state$tau_eta*t(state$Lambda_)) #sparse
   
   #6. update z
-  index(state$Lambda_) = c("j","h")
-  index(state$eta) = c("i", "h")
+  calucus::index(state$Lambda_) = c("j","h")
+  calucus::index(state$eta) = c("i", "h")
   eta_lam = einstein(state$eta, state$Lambda_, drop = F)  # n x p x k
   mu_eta = tcrossprod( state$eta,state$Lambda)
   mu_phi = tcrossprod( state$phi,state$Gamma)
@@ -516,8 +516,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   
   mu_eta = tcrossprod( state$eta,state$Lambda)
   ps_phi = state$phi_*state$ps
-  index(state$Gamma) = c("j", "h")
-  index(ps_phi) = c("i","h")
+  calucus::index(state$Gamma) = c("j", "h")
+  calucus::index(ps_phi) = c("i","h")
   phi_ps_gamma= (einstein( (ps_phi),(state$Gamma),drop = F))  # n x p x k
   
   mu=mu_eta+mu_phi
@@ -560,8 +560,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   mu_phi= tcrossprod(state$phi,state$Gamma)
   mu=mu_eta+mu_phi
   tau_phi =t(t(state$phi_)*state$tau_phi )
-  index(tau_phi) = c("i","h")
-  index(state$Gamma)=c("j", "h")
+  calucus::index(tau_phi) = c("i","h")
+  calucus::index(state$Gamma)=c("j", "h")
   
   phi_tau_gam = einstein(tau_phi,state$Gamma, drop = F)  # n x p x k
   for(h in 1:state$k){
