@@ -199,8 +199,8 @@ Gibbs_Kernel=function(state){
   state$Lambda= t(state$tau_eta*t(state$Lambda_)) #sparse
   
   #6. update z
-  index(state$Lambda_) = c("j","h")
-  index(state$eta) = c("i", "h")
+  calculus::index(state$Lambda_) = c("j","h")
+  calculus::index(state$eta) = c("i", "h")
   eta_lam = einstein(state$eta, state$Lambda_, drop = F)  # n x p x k
   mu_eta = tcrossprod( state$eta,state$Lambda)
   mu_phi = tcrossprod( state$phi,state$Gamma)
@@ -238,8 +238,8 @@ Gibbs_Kernel=function(state){
   
   mu_eta = tcrossprod( state$eta,state$Lambda)
   ps_phi = state$phi_*state$ps
-  index(state$Gamma) = c("j", "h")
-  index(ps_phi) = c("i","h")
+  calculus::index(state$Gamma) = c("j", "h")
+  calculus::index(ps_phi) = c("i","h")
   phi_ps_gamma= (einstein( (ps_phi),(state$Gamma),drop = F))  # n x p x k
   
   mu=mu_eta+mu_phi
@@ -282,8 +282,8 @@ Gibbs_Kernel=function(state){
   mu_phi= tcrossprod(state$phi,state$Gamma)
   mu=mu_eta+mu_phi
   tau_phi =t(t(state$phi_)*state$tau_phi )
-  index(tau_phi) = c("i","h")
-  index(state$Gamma)=c("j", "h")
+  calculus::index(tau_phi) = c("i","h")
+  calculus::index(state$Gamma)=c("j", "h")
   
   phi_tau_gam = einstein(tau_phi,state$Gamma, drop = F)  # n x p x k
   for(h in 1:state$k){
