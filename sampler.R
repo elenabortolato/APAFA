@@ -65,54 +65,54 @@ List pgg_m_sigma_(const Eigen::Map<Eigen::MatrixXd>  & omega,
 #      z_eta =z_eta, z_phi= z_phi, # vectors of length d and k
 #      w_eta=w_eta, w_phi=w_phi, # vectors of length d and k
 #      v_eta=v_eta, v_phi=v_phi, # vectors of length d and k)
- 
+
 Gibbs_Kernel=function(state){
   
   if(is.null(state$scale_beta)) state$scale_beta=0.1
   if(is.null(state$X)) state$X=matrix(0.1, ncol=state$d, nrow = state$n)
   if(is.null(state$ps)) state$s=matrix(rbinom(state$n*state$k),0.1, ncol=state$k)
-   
+  
   #1.update factors
   I=diag(state$d+state$k)
   invS=diag(1/diag(state$Sigma))
   mean_update=sapply(1:state$n, 
-                      function (i) solve(I+rbind(t(state$Lambda),t(state$Gamma)*state$tau_phi*state$ps[i,] )%*%invS%*%
-                                  t(rbind(t(state$Lambda), t(state$Gamma)*state$tau_phi*state$ps[i,] )))%*%
-                        (rbind(t(state$Lambda),t(state$Gamma)*state$tau_phi*state$ps[i,] ))%*%invS%*%
-                        (state$y[i,])) 
-   var_update=lapply(1:state$n,
                      function (i) solve(I+rbind(t(state$Lambda),t(state$Gamma)*state$tau_phi*state$ps[i,] )%*%invS%*%
-                                          t(rbind(t(state$Lambda), t(state$Gamma)*state$tau_phi*state$ps[i,] ))) )
-   
-   factors=sapply(1:state$n, function(i) rmvnorm(1,rep(0,state$d+state$k), var_update[[i]]))+(mean_update)
-   state$eta=t(factors)[,1:state$d]
-   state$phi_=t(factors)[,-c(1:state$d)] #non sparse
-   state$phi=t(factors)[,-c(1:state$d)]*t(state$tau_phi*t(state$ps)) #sparse
-   
-   #standardize
-   for(h in 1:state$d){
-     sdh=sd(state$eta[,h])
-     state$Lambda_[,h]= state$Lambda_[,h]*(sdh)
-     state$Lambda[,h]= state$Lambda[,h]*(sdh)
-     state$eta[,h]= state$eta[,h]/(sdh)
-   }
-   for(h in 1:state$k){
-     sdh=sd(state$phi_[,h])
-     state$Gamma[,h]= state$Gamma[,h]*(sdh)
-     state$phi_[,h]= state$phi_[,h]/(sdh)
-     state$phi[,h]= state$phi[,h]/(sdh)
-   }
-   
-   #2.update Sigmas
-   Ytil = state$y - tcrossprod(state$eta,state$Lambda)-tcrossprod(state$phi,state$Gamma)
-   invsig = rgamma(state$p, state$a_sigma+state$n/2, state$b_sigma+0.5*colSums(Ytil^2))
-   state$Sigma = diag(1/invsig)
+                                          t(rbind(t(state$Lambda), t(state$Gamma)*state$tau_phi*state$ps[i,] )))%*%
+                       (rbind(t(state$Lambda),t(state$Gamma)*state$tau_phi*state$ps[i,] ))%*%invS%*%
+                       (state$y[i,])) 
+  var_update=lapply(1:state$n,
+                    function (i) solve(I+rbind(t(state$Lambda),t(state$Gamma)*state$tau_phi*state$ps[i,] )%*%invS%*%
+                                         t(rbind(t(state$Lambda), t(state$Gamma)*state$tau_phi*state$ps[i,] ))) )
   
-   #3.update betas
-   pgg_m_and_sigma <- function(omega, precomputed){
+  factors=sapply(1:state$n, function(i) rmvnorm(1,rep(0,state$d+state$k), var_update[[i]]))+(mean_update)
+  state$eta=t(factors)[,1:state$d]
+  state$phi_=t(factors)[,-c(1:state$d)] #non sparse
+  state$phi=t(factors)[,-c(1:state$d)]*t(state$tau_phi*t(state$ps)) #sparse
+  
+  #standardize
+  for(h in 1:state$d){
+    sdh=sd(state$eta[,h])
+    state$Lambda_[,h]= state$Lambda_[,h]*(sdh)
+    state$Lambda[,h]= state$Lambda[,h]*(sdh)
+    state$eta[,h]= state$eta[,h]/(sdh)
+  }
+  for(h in 1:state$k){
+    sdh=sd(state$phi_[,h])
+    state$Gamma[,h]= state$Gamma[,h]*(sdh)
+    state$phi_[,h]= state$phi_[,h]/(sdh)
+    state$phi[,h]= state$phi[,h]/(sdh)
+  }
+  
+  #2.update Sigmas
+  Ytil = state$y - tcrossprod(state$eta,state$Lambda)-tcrossprod(state$phi,state$Gamma)
+  invsig = rgamma(state$p, state$a_sigma+state$n/2, state$b_sigma+0.5*colSums(Ytil^2))
+  state$Sigma = diag(1/invsig)
+  
+  #3.update betas
+  pgg_m_and_sigma <- function(omega, precomputed){
     return(pgg_m_sigma_(omega, precomputed$X, precomputed$invB, precomputed$KTkappaplusinvBtimesb))
-   }
-   pgg_precomputation <- function(Y, X, b, B){
+  }
+  pgg_precomputation <- function(Y, X, b, B){
     invB <- solve(B)
     invBtimesb <- invB %*% (b)
     Ykappa <- matrix(Y - rep(0.5, length(Y)), ncol=1)
@@ -120,7 +120,7 @@ Gibbs_Kernel=function(state){
     KTkappaplusinvBtimesb <- XTkappa + (invBtimesb)
     return(list(n=nrow(X), p=ncol(X), X=X, Y=Y, b=b, B=B,
                 invB=invB, invBtimesb=invBtimesb, KTkappaplusinvBtimesb=KTkappaplusinvBtimesb))
-   } 
+  } 
   pred =  state$X%*%(state$betas)
   logit_phi = plogis(pred)
   ps_= matrix(1, nrow = state$n, ncol = state$k)
@@ -151,7 +151,7 @@ Gibbs_Kernel=function(state){
   a_load=c(rep(state$a_lambda, state$d),rep(state$a_gamma, state$k))
   b_load=c(rep(state$b_lambda, state$d),rep(state$b_gamma, state$k))
   loadings=cbind(state$Lambda_, state$Gamma)# non sparse
-  Prec = diag(rgamma(state$d+state$k,a_load+0.5*state$p, b_load+0.5*colSums(loadings^2)))
+  Prec = diag(rgamma(state$d+state$k,state$a_load+0.5*state$p, state$b_load+0.5*colSums(loadings^2)))
   
   #5. Update the loadings  
   factors=cbind(t(t(state$eta)*(state$tau_eta)), t(t(state$phi))) #sparse
@@ -165,8 +165,8 @@ Gibbs_Kernel=function(state){
   state$Lambda= t(state$tau_eta*t(state$Lambda_)) #sparse
   
   #6. update z
-  calucus::index(state$Lambda_) = c("j","h")
-  calucus::index(state$eta) = c("i", "h")
+  calculus::index(state$Lambda_) = c("j","h")
+  calculus::index(state$eta) = c("i", "h")
   eta_lam = einstein(state$eta, state$Lambda_, drop = F)  # n x p x k
   mu_eta = tcrossprod( state$eta,state$Lambda)
   mu_phi = tcrossprod( state$phi,state$Gamma)
@@ -204,8 +204,8 @@ Gibbs_Kernel=function(state){
   
   mu_eta = tcrossprod( state$eta,state$Lambda)
   ps_phi = state$phi_*state$ps
-  calucus::index(state$Gamma) = c("j", "h")
-  calucus::index(ps_phi) = c("i","h")
+  calculus::index(state$Gamma) = c("j", "h")
+  calculus::index(ps_phi) = c("i","h")
   phi_ps_gamma= (einstein( (ps_phi),(state$Gamma),drop = F))  # n x p x k
   
   mu=mu_eta+mu_phi
@@ -248,8 +248,8 @@ Gibbs_Kernel=function(state){
   mu_phi= tcrossprod(state$phi,state$Gamma)
   mu=mu_eta+mu_phi
   tau_phi =t(t(state$phi_)*state$tau_phi )
-  calucus::index(tau_phi) = c("i","h")
-  calucus::index(state$Gamma)=c("j", "h")
+  calculus::index(tau_phi) = c("i","h")
+  calculus::index(state$Gamma)=c("j", "h")
   
   phi_tau_gam = einstein(tau_phi,state$Gamma, drop = F)  # n x p x k
   for(h in 1:state$k){
@@ -267,7 +267,7 @@ Gibbs_Kernel=function(state){
   }
   state$phi=state$phi_*t(state$tau_phi*t(state$ps)) # sparse
   
- 
+  
   #reorder active factors (specific)
   if(sum(state$tau_phi)>0){
     idx_act=which(state$tau_phi==1)
@@ -290,7 +290,7 @@ Gibbs_Kernel=function(state){
   
   
   return(state)
- }
+}
 
 
 
@@ -418,7 +418,7 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   }
   
   #2.update Sigmas
-    state$Sigma = diag(state$p)
+  state$Sigma = diag(state$p)
   
   #3.update betas
   pgg_m_and_sigma <- function(omega, precomputed){
@@ -477,8 +477,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   state$Lambda= t(state$tau_eta*t(state$Lambda_)) #sparse
   
   #6. update z
-  calucus::index(state$Lambda_) = c("j","h")
-  calucus::index(state$eta) = c("i", "h")
+  calculus::index(state$Lambda_) = c("j","h")
+  calculus::index(state$eta) = c("i", "h")
   eta_lam = einstein(state$eta, state$Lambda_, drop = F)  # n x p x k
   mu_eta = tcrossprod( state$eta,state$Lambda)
   mu_phi = tcrossprod( state$phi,state$Gamma)
@@ -516,8 +516,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   
   mu_eta = tcrossprod( state$eta,state$Lambda)
   ps_phi = state$phi_*state$ps
-  calucus::index(state$Gamma) = c("j", "h")
-  calucus::index(ps_phi) = c("i","h")
+  calculus::index(state$Gamma) = c("j", "h")
+  calculus::index(ps_phi) = c("i","h")
   phi_ps_gamma= (einstein( (ps_phi),(state$Gamma),drop = F))  # n x p x k
   
   mu=mu_eta+mu_phi
@@ -560,8 +560,8 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   mu_phi= tcrossprod(state$phi,state$Gamma)
   mu=mu_eta+mu_phi
   tau_phi =t(t(state$phi_)*state$tau_phi )
-  calucus::index(tau_phi) = c("i","h")
-  calucus::index(state$Gamma)=c("j", "h")
+  calculus::index(tau_phi) = c("i","h")
+  calculus::index(state$Gamma)=c("j", "h")
   
   phi_tau_gam = einstein(tau_phi,state$Gamma, drop = F)  # n x p x k
   for(h in 1:state$k){
@@ -602,5 +602,3 @@ Gibbs_Kernel_non_gauss<-function(state, family="logistic"){
   
   return(state)
 }
-
- 
