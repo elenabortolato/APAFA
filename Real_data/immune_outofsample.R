@@ -3,7 +3,7 @@ memory.limit(999999)
 # for APAFA
 load("immune_res_imputation.RData")
 # for TETRIS
-#load("immune_tetris_mse.RData")
+#load("tetris_immune_imp.RData")
 y=readRDS(file="immune_data.RDS")
 iter
   
