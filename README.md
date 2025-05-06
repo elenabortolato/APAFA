@@ -1,4 +1,9 @@
 # APAFA
+
+This repository contains the code to reproduce simulations, figures, and real data analysis results from the paper "Adaptive Partition Factor Analysis" by Elena Bortolato and Antonio Canale
+
+## Organization 
+
 - Real_data contains the code to reproduce the analysis on the real data of Section 4 and the code for the out-of-sample predictive experiment of Section 4.2.1 (APAFA and TETRIS)
 - Supplementary contains the material to reproduce some extra simulations that are reported in the Supplementary Materials 1:
   - sensitivity.R
