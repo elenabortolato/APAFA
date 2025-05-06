@@ -1,13 +1,15 @@
 # APAFA
 
 - simulation.zip contains the simulation results (as .RDS files) and the R code to reproduce Figure 4 in the manuscript.
-- immune.zip contains the code to analyze the gene expression data (data used in Multi‐study factor analysis - De Vito et al., 2018 and available in Bioconductor)
+- Real_data contains the code to analyze the examples based on real data
 - sampler.R contains the code for the Gibbs sampler for Gaussian data and binary data (N.B. contains cpp dependences)
+- Supplementary contains the material to reproduce some extra simulations that are reported in the Supplementary Materials 1:
+ + sensitivity.R
+ + effect_standardize_factors.R
+ + convergence_and_uncertainty.R
+
 
 
 ## .R files to reproduce the results in the Supplementary material:
 
-- sensitivity.R
-- effect_standardize_factors.R
-- convergence_and_uncertainty.R
 
