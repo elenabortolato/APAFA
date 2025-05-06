@@ -1,6 +1,9 @@
 rm(list=ls())
 memory.limit(999999)
+# for APAFA
 load("immune_res_imputation.RData")
+# for TETRIS
+#load("immune_tetris_mse.RData")
 y=readRDS(file="immune_data.RDS")
 iter
   
