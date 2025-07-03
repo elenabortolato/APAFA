@@ -1,7 +1,7 @@
 rm(list=ls())
 
 #setwd("/Users/elenabortolato/Desktop/FactorModels/birds")
-data.directory = "./data"
+data.directory = "./birds"
 da = read.csv(file.path(data.directory, "data.csv"), stringsAsFactors=TRUE)
  
 
