@@ -1,4 +1,4 @@
-#SUPPLEMENTARY S1: Convergence assessment and uncertainty quantification 
+#SUPPLEMENTARY material: Workflow and Convergence assessment and uncertainty quantification 
 library(Rcpp) 
 library(MASS)
 library(mvtnorm)
