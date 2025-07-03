@@ -4,8 +4,8 @@ This repository contains the code to reproduce simulations, figures, and real da
 
 ## Organization 
 
-- Real_data contains the code to reproduce the analysis and figures on the real data of Section 4 and the code for the out-of-sample predictive experiment of Section 4.2.1 (APAFA and TETRIS)
-- Supplementary contains the material to reproduce some extra simulations that are reported in the Supplementary Materials 1:
+- Real_data contains the code to reproduce the analysis and figures on the real data examples of Section 4 and the code for the out-of-sample predictive experiment reported in the Supplementary materials
+- Supplementary contains the material to reproduce some extra simulations that are reported in the Supplementary Materials:
   - sensitivity.R
   - effect_standardize_factors.R
   - convergence_and_uncertainty.R
