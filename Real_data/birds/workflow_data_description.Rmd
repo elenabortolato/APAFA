@@ -2,4 +2,5 @@ The file birds.R contains the code for performing all tha analysis is the First 
 
 - data.csv contains count data of bird species observed in 200 locations over time
 - Ctree.tre contains the phylogenetic tree of the species observed
+- traits.csv contain sinformation on the species observed (mass, habitat)
 - grid1000.csv and grid10000.csv contain information about the locations (habitat, temperature...)
