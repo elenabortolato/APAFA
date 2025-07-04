@@ -1,0 +1,2 @@
+This folder contains scripts for reproducing the figures contained in the supplementary materials.
+Every script takes about 20 minutes to run
