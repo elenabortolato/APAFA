@@ -1,4 +1,4 @@
-The file birds.R contains the code for performing all tha analysis is the First real data example of the paper.
+The file birds.R contains the code for performing all tha analysis in the  real data example of the paper of Section 4.1.
 
 - data.csv contains count data of bird species observed in 200 locations over time
 - Ctree.tre contains the phylogenetic tree of the species observed
