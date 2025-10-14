@@ -7,7 +7,7 @@ The method is designed to estimate factor models, accommodating study-specific a
 ---
 
 ## 📁  Repository
-
+```
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
 ├── simulate_data.R # Example script that generates toy data and runs a small simulation using APAFA
@@ -34,10 +34,11 @@ APAFA/
 │ ├── run_immune.R # Script performing the immune response analysis
 │ └── results/ # Results & figures for the immune analysis
 │
-├── Supplementary/ # Scripts reproducing supplementary experiments and robustness checks
-│ ├── identifiability_test.R
-│ └── sensitivity_analysis.R
-│
+└── Supplementary/ # Scripts reproducing supplementary experiments and robustness checks
+  ├── identifiability_test.R
+  └── sensitivity_analysis.R
+```
+
 
 - **`sampler.R`** → Core Gibbs sampler implementing the APAFA model.  
 - **`simulate_data.R`** →  # contains one example of code used to run the simulation studies with APAFA
