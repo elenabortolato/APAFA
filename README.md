@@ -37,23 +37,15 @@ APAFA/
 │ ├──results/ # Results & figures for the immune analysis
 │ └── results/ # Results & figures for the immune analysis
 │
-└── Supplementary/ # Scripts reproducing supplementary experiments and robustness checks
+└── Supplementary/ # Scripts reproducing additional experiments and robustness checkst reported in the Supplementary Materials of the paper.
   ├── identifiability_test.R
-  └── sensitivity_analysis.R
+  └── sensitivity.R
+  └── effect_standardize_factors.R
+  └──workflow_convergence_uncertainty.R
 ```
 
-
-- **`sampler.R`** → Core Gibbs sampler implementing the APAFA model.  
-- **`simulate_data.R`** →  # contains one example of code used to run the simulation studies with APAFA
-- **`simulations/`** → Code and results to reproduce simulation studies (Section 2 in the paper).  
-- **`Realdata/birds/`** → Scripts for the bird community dataset analysis.
-- **`Realdata/birds/birds.R`** → the code for performing all tha analysis in the  real data example of the paper of Section 4.1.
-- **`Realdata/birds/data.csv`** →  count data of bird species observed in 200 locations over time
-- **`Realdata/birds/Ctree.tre`** → phylogenetic tree of the species observed
-- **`Realdata/birds/traits.csv`** → information on the species observed (mass, habitat)
 - **`Realdata/birds/grid1000.csv`** → (and grid10000.csv) information about the locations (habitat, temperature...)
-- **`Realdata/immune/`** → Scripts for the immune response dataset analysis.  
-- **`Supplementary/`** → Reproduces additional experiments and robustness checksthat are reported in the Supplementary Materials of the paper.
+- **`Realdata/immune/`** → Scripts for the immune response dataset analysis.  per.
 
 ---
 
