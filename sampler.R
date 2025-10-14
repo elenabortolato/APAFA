@@ -1,27 +1,43 @@
-# ==========================================================
-# Gibbs sampling for flexible Multilevel Sparse Factor Analysis (MSFA)
+# ==================================================================
+# Gibbs sampling for Adaptive Partition Factor Analysis (APAFA)
 # ------------------------------------------------------------------
-# Developer-style comments: concise explanations, argument notes,
-# and practical hints for maintainers/debugging.
 #
-# - Keep original algorithm intact.
-# - Add short comments above blocks and inline where code is nontrivial.
-# - Best used as part of a package or a scripts folder; requires:
-#     Rcpp, RcppEigen, RcppArmadillo, mvtnorm, pgdraw, unbiasedmcmc,
-#     einstein/calculus helpers, matrixStats, rmvnorm, etc.
+# Requirements:
+#   R >= 4.1
+#   Packages:
+#     Rcpp, RcppEigen, RcppArmadillo,
+#     mvtnorm, pgdraw, unbiasedmcmc,
+#     calculus, matrixStats, MCMCpack
 #
-# Save as: gibbs_msfa.R
+# ==========================================================
+
+
+# ----------------------------------------------------------
+# 0. INSTALL AND LOAD REQUIRED PACKAGES
+# ----------------------------------------------------------
+
+required_pkgs <- c(
+  "Rcpp", "RcppEigen", "RcppArmadillo", "mvtnorm",
+  "pgdraw", "unbiasedmcmc", "calculus", "matrixStats", "MCMCpack"
+)
+
+# Install any missing packages automatically
+for (pkg in required_pkgs) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    message("Installing missing package: ", pkg)
+    install.packages(pkg)
+  }
+}
+
+# Load all packages
+lapply(required_pkgs, library, character.only = TRUE)
+
 # ==========================================================
 
 # --------------------------
 # Libraries and Rcpp helpers
 # --------------------------
-library(Rcpp)          # for inline C++ functions
-# NOTE: other packages used by the R code (mvtnorm, pgdraw, unbiasedmcmc,
-#       calculus, matrixStats, einstein, etc.) should be imported/installed
-#       in the user environment before running the sampler.
-
-# ------------------------------------------------------------
+#
 # C++ helper: compute posterior mean and (inverse) covariance
 # for Polya–Gamma augmented Gaussian update (matrix operations).
 # Returns:
@@ -32,14 +48,15 @@ library(Rcpp)          # for inline C++ functions
 #
 # Called from R through pgg_m_sigma_(...)
 # ------------------------------------------------------------
+
 cppFunction('
 List pgg_m_sigma_(const Eigen::Map<Eigen::MatrixXd>  & omega,
-                  const Eigen::Map<Eigen::MatrixXd>  & X,
-                  const Eigen::Map<Eigen::MatrixXd>  & invB,
-                  const Eigen::Map<Eigen::VectorXd>  & KTkappaplusinvBtimesb){
+                       const Eigen::Map<Eigen::MatrixXd>  & X,
+                       const Eigen::Map<Eigen::MatrixXd>  & invB,
+                       const Eigen::Map<Eigen::VectorXd>  & KTkappaplusinvBtimesb){
   int n = X.rows();
   int p = X.cols();
-  // Build matrix A = X' Omega X + B^{-1}
+  // The matrix A stores XT Omega X + B^{-1}, that is, Sigma^{-1}
   Eigen::MatrixXd A(p,p);
   for (int j1 = 0; j1 < p; j1 ++){
     for (int j2 = j1; j2 < p; j2 ++){
@@ -50,7 +67,6 @@ List pgg_m_sigma_(const Eigen::Map<Eigen::MatrixXd>  & omega,
       A(j2,j1) = A(j1,j2);
     }
   }
-  // Cholesky decomposition and solve linear system A x = KTkappaplusinvBtimesb
   Eigen::LLT<Eigen::MatrixXd> lltofA(A);
   Eigen::MatrixXd lower = lltofA.matrixL();
   Eigen::VectorXd x = lltofA.solve(KTkappaplusinvBtimesb);
@@ -61,15 +77,40 @@ List pgg_m_sigma_(const Eigen::Map<Eigen::MatrixXd>  & omega,
 }', depends = "RcppEigen")
 
 
+
 # ==========================================================
 # Gibbs_Kernel: single-iteration Gibbs sampler for GAUSSIAN data
 # ----------------------------------------------------------
 # INPUT: state (list) containing model dimensions, data, parameters,
-#        and prior hyperparameters. See header comments in original
-#        file for expected fields (n, p, d, k, Lambda, Lambda_, eta, Gamma, phi, phi_,
-#        ps, Sigma, betas, X, scale_beta, a_sigma, b_sigma, a_lambda, b_lambda,
-#        a_gamma, b_gamma, alpha_eta, alpha_phi, tau_eta, tau_phi, z_eta, z_phi,
-#        v_eta, v_phi, w_eta, w_phi, etc.)
+#        and prior hyperparameters. 
+#
+# list(n=n, #n. of units, scalar
+#      p=p, # n. of observed variables per unit
+#      S=S, #n. of groups
+#      ns=ns, #n. of units, vector of length S 
+#      X=X, # design matrix n x S of dummy variables for groups
+#      d=d, k=k, # max number of shared and specific factors
+#      y=y, # n x p matrix of responses
+# initialization of parameters
+#      Lambda=Lambda,  Lambda_=Lambda, # p x d matrix of shared loadings (sparse and non sparse)
+#      eta= eta,  n x d matrix of factors
+#      Gamma=Gamma, # p x d matrix of specific loadings
+#      phi= phi, phi_= phi_, # n x k sparse and non sparse specific factors
+#      ps=matrix(rbinom(n*k,1,0.5), ncol=k)# matrix of local activation for phi 
+#      Sigma=Sigma,# p x p covariance matrix
+#      betas=betas,  matrix of dimension S x k)
+#prior hyper parameters
+#      scale_beta=0.1 # suggested: 1/n #scale hyperparameter for beta#      
+#      a_sigma=2, b_sigma=2,# scalars, InverseGamma hyperparameters for Sigma
+#      a_load=a_load, b_load=b_load,#(d+k) vectors of InverseGamma hyperparameters for Lambda and Gamma
+#      alpha_eta=10, alpha_phi=6, # hyperparameters of the CUSP process (n. active factors)
+#initialization CUSP
+#      tau_eta=c(rep(1,d), rep(0, d-d)), # global shrinkage initialization
+#      tau_phi=c(rep(1,k), rep(0, k-k)), 
+#      z_eta =z_eta, z_phi= z_phi, # vectors of length d and k
+#      w_eta=w_eta, w_phi=w_phi, # vectors of length d and k
+#      v_eta=v_eta, v_phi=v_phi, # vectors of length d and k)
+#
 #
 # OUTPUT: modified state (list) with updated parameters (in place).
 #
@@ -82,7 +123,6 @@ List pgg_m_sigma_(const Eigen::Map<Eigen::MatrixXd>  & omega,
 #      5) loadings (Lambda_, Gamma) updates
 #      6) CUSP indicators (z, tau), stick-breaking weights (v, w)
 #      7) local activations ps
-#  - Many matrix solves; watch for numerical issues (singular matrices).
 # ==========================================================
 Gibbs_Kernel=function(state){
 
