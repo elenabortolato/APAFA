@@ -31,7 +31,10 @@ APAFA/
 │ │ └── grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │
 │ └── immune/ # Immune response dataset (other real-data example)
-│ ├── run_immune.R # Script performing the immune response analysis
+│ ├──immune_data.RDS
+│ ├──imputation_APAFA.R
+│ ├──imputation_TETRIS.R
+│ ├──results/ # Results & figures for the immune analysis
 │ └── results/ # Results & figures for the immune analysis
 │
 └── Supplementary/ # Scripts reproducing supplementary experiments and robustness checks
