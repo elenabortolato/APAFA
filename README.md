@@ -8,6 +8,7 @@ The method is designed to estimate factor models, accommodating study-specific a
 
 ## 📁 Repository Structure
 
+<br>
 APAFA/
 ├── sampler.R # Main Gibbs sampler / algorithm implementation
 ├── apa­fa_utils.R # Utility functions (data prep, post-processing, diagnostics)
