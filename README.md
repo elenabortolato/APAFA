@@ -37,7 +37,7 @@ APAFA/
 │ ├──results/ # Results & figures for the immune analysis
 │ └── results/ # Results & figures for the immune analysis
 │
-└── Supplementary/ # Scripts reproducing additional experiments and robustness checkst reported in the Supplementary Materials of the paper.
+└── Supplementary/ # Scripts reproducing additional experiments and  checkst reported in the Supplementary Materials of the paper.
   ├── identifiability_test.R
   └── sensitivity.R
   └── effect_standardize_factors.R
