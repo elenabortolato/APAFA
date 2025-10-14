@@ -6,11 +6,7 @@ The method is designed to estimate factor models, accommodating study-specific a
 
 ---
 
-## 📁 Repository Structure
-
----
-
-## 🧩 Navigating the Repository
+## 📁  Navigating the Repository
 
 - **`sampler.R`** → Core Gibbs sampler implementing the APAFA model.  
 - **`simulate_data.R`** → simulate_data.R # contains one example of code used to run the simulation studies with APAFA
