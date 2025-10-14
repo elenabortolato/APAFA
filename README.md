@@ -8,12 +8,48 @@ The method is designed to estimate factor models, accommodating study-specific a
 
 ## 📁 Repository Structure
 
-<br>
+---
+
+## 🧩 Navigating the Repository
+
+- **`sampler.R`** → Core Gibbs sampler implementing the APAFA model.  
+- **`simulate_data.R`** → simulate_data.R # contains one example of code used to run the simulation studies with APAFA
+- **`simulations/`** → Code and results to reproduce simulation studies (Section 2 in the paper).  
+- **`Realdata/birds/`** → Scripts for the bird community dataset analysis.  
+- **`Realdata/immune/`** → Scripts for the immune response dataset analysis.  
+- **`Supplementary/`** → Reproduces additional experiments and robustness checksthat are reported in the Supplementary Materials of the paper.
+
+---
+
+## ⚙️ Software Requirements
+
+- **R version:** ≥ 4.4.1  
+- **Operating System:** Tested on macOS and Windows
+
+### Required R packages
+
+Install all required packages with:
+
+```r
+install.packages(c(
+  "Rcpp", "RcppEigen", "mvtnorm", "matrixStats", 
+  "ggplot2", "cowplot", "coda", "tidyverse"
+))
+```
+ Optional packages (for plotting and diagnostics):
+```r
+install.packages(c(
+  "ggpubr", "reshape2", "patchwork"
+))
+```
+
+
 APAFA/
 ├── sampler.R # Main Gibbs sampler / algorithm implementation
+├── simulate_data.R # contains one example of code used to run the simulation studies with APAFA
 ├── apa­fa_utils.R # Utility functions (data prep, post-processing, diagnostics)
 ├── examples/ # Example scripts & datasets
-│ ├── simulate_data.R # contains one example of code used to run the simulation studies with APAFA
+│ 
 │ └── run_apa­fa_example.R
 ├── README.md # This file
 └── Supplementary Materials/ # code to reproduce supplementary materials
@@ -23,7 +59,6 @@ APAFA/
 - Real_data contains the code and data to reproduce the analysis and figures on the real data examples of Section 4 and the code for the out-of-sample predictive experiment reported in the Supplementary materials
 - Supplementary contains short examples of workflow and the material to reproduce some extra simulations that are reported in the Supplementary Materials: (the effect of the prior hyperparameters choice, the effect of standardizing the factors, extra visualizations and uncertainty quantification summaries)
 
-- In each of the subfolders there's a decription of the files contained
 
 
  
