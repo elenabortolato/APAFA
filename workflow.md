@@ -424,7 +424,7 @@ matrices to store results of MCMC
 
 ![](workflow_files/figure-markdown_strict/unnamed-chunk-9-1.png)
 
-Posterior distribution of the entries of the covariance matrix compared
+The figure below shows the posterior distribution of the entries of the covariance matrix compared
 with true values (red marks)
 
     ### uncertainty quantification
