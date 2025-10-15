@@ -25,6 +25,8 @@ if (file.exists(sampler_file)) {
 }
 ```
 
+In this example we consider S=3 groups, each of 20 units, p=10 observed varaibles, 3 active shared and 3 active specific factors
+
 ```{r}
 #-------------------------------------------------------
 # Example data generation for APAFA (shared + specific factors)
@@ -137,7 +139,7 @@ plogis(betas)  # Activation probabilities
 
 
 ```
-
+## Initialization
 
 ```{r}
 #-------------------------------------------------------
