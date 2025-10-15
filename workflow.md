@@ -15,7 +15,8 @@ all library dependencies
     #  stop(paste("File not found:", sampler_file))
     #}
       
-Generate synthetic data
+## Generate synthetic data
+In this example we consider  S=3 groups, each of 20 units, p=10 observed varaibles, 3 active shared and 3 active specific factors
 
     #-------------------------------------------------------
     # Example data generation for APAFA (shared + specific factors)
@@ -149,6 +150,8 @@ Generate synthetic data
     ## [1,]  0.5  0.5  0.5  0.5  0.5  0.5
     ## [2,]  0.5  0.5  0.5  0.5  0.5  0.5
     ## [3,]  0.5  0.5  0.5  0.5  0.5  0.5
+
+## Initialize the MCMC algorithm
 
     #-------------------------------------------------------
     # Initialize state list for MCMC kernel
