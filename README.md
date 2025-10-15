@@ -36,10 +36,11 @@ APAFA/
 │ └── results/ # Results & figures for the immune analysis
 │
 └── Supplementary/ # Scripts reproducing additional experiments and  checkst reported in the Supplementary Materials of the paper.
-  ├── identifiability_test.R  # code for obtaining Figure SM6 in the supplementary Materials
-  └── sensitivity.R # code for obtaining Figure SM4 and SM6 in the supplementary Materials
-  └── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
+  ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
   └── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
+  └── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
+  └── identifiability_test.R  # code for obtaining Figure SM6 in the supplementary Materials
+  
 ```
 
 
