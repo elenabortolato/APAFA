@@ -39,7 +39,7 @@ APAFA/
   ├── identifiability_test.R
   └── sensitivity.R
   └── effect_standardize_factors.R
-  └──workflow_convergence_uncertainty.R
+  └── convergence_uncertainty.R # code for obtaining Figure SM14 in the supplementary Materials
 ```
 
 
