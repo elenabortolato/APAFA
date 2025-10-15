@@ -25,7 +25,7 @@ APAFA/
 │ │ ├── grid1000.csv # Location-level covariates for 1,000 locations (habitat, temperature, ...)
 │ │ └── grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │
-│ └── immune/ # Immune response dataset (other real-data example)
+│ └── immune/ # Immune response dataset (Section 4.2)
 │ ├──immune_data.RDS
 │ ├──imputation_APAFA.R
 │ ├──imputation_TETRIS.R
