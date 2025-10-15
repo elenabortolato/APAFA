@@ -373,6 +373,7 @@ for (iter in 1:maxiter) {
 }
 ```
 
+Show the running loglikelihood and the number of active factors
 
 ```{r}
 # Plot the loglikelihood
@@ -401,7 +402,9 @@ legend(
 )
 ```
 
-Posterior distribution of the entries of the covariance matrix compared with true values (red marks)
+
+The figure below shows the posterior distribution of the entries of the covariance matrix compared with true values (red marks)
+
 
 ```{r}
 ### uncertainty quantification
