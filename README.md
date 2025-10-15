@@ -11,8 +11,8 @@ The method is designed to estimate factor models, accommodating study-specific a
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
 ├── simulate_data.R # Example script that  runs a  simulation study
-├── workflow.Rmd #
-├── workflow.md # vignette
+├── workflow.Rmd # explains in detail how to use the method
+├── workflow.md # 
 │
 ├── simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── run_simulations.R # Driver script for running the full set of simulation scenarios
