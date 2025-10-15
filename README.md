@@ -10,7 +10,7 @@ The method is designed to estimate factor models, accommodating study-specific a
 ```
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
-├── simulate_data.R # Example script that generates toy data and runs a small simulation using APAFA
+├── simulate_data.R # Example script that  runs a  simulation study
 ├── workflow.Rmd #
 ├── workflow.md # vignette
 │
