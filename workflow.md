@@ -15,7 +15,7 @@ all library dependencies
     #  stop(paste("File not found:", sampler_file))
     #}
       
-
+Generate synthetic data
 
     #-------------------------------------------------------
     # Example data generation for APAFA (shared + specific factors)
