@@ -16,11 +16,6 @@ APAFA/
 ├── workflow.Rmd # explains in detail how to use the method
 ├── workflow.md # 
 │
-├── simulations/ # Code + results to reproduce simulation studies (Section 2)
-│ ├── run_simulations.R # Driver script for running the full set of simulation scenarios
-│ ├── results/ # Cached posterior draws and summary tables (large files omitted from repo)
-│ └── figures/ # Figures and tables generated from simulation results
-│
 ├── Realdata/
 │ ├── birds/ # Bird community study (Section 4.1)
 │ │ ├── birds.R # Script performing the full real-data analysis for the birds example
@@ -36,6 +31,11 @@ APAFA/
 │ ├──imputation_TETRIS.R
 │ ├──results/ # Results & figures for the immune analysis
 │ └── results/ # Results & figures for the immune analysis
+│
+├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
+│ ├── figure4.R # Code to reproduce the results of the simuation studies (Figure 4 of the manuscript)
+│ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
+│ └── long/ # Results of the simulation studies for data in the "long" format (n>p)
 │
 └── Supplementary/ # Scripts reproducing additional experiments and  checkst reported in the Supplementary Materials of the paper.
   ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
