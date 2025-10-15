@@ -60,15 +60,43 @@ install.packages(c(
   "Rcpp", "RcppEigen", "mvtnorm", "matrixStats", 
   "ggplot2", "cowplot", "coda", "tidyverse"
 ))
-```
- Optional packages (for plotting and diagnostics):
-```r
+
+# ---- Optional packages ----
 install.packages(c(
   "ggpubr", "reshape2", "patchwork"
 ))
+
+# ---- Version checks ----
+required_versions <- list(
+  Rcpp        = "1.0.14",
+  mvtnorm     = "1.3.1",
+  MCMCpack    = "1.7.1",
+  calculus    = "1.0.1",
+  unbiasedmcmc = "0.3.0",
+  pgdraw      = "1.1",
+  ggplot2     = "3.5.1"
+)
+
+check_versions <- function(pkgs) {
+  for (pkg in names(pkgs)) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      warning(sprintf("Package '%s' is not installed.", pkg))
+    } else {
+      current <- as.character(utils::packageVersion(pkg))
+      required <- pkgs[[pkg]]
+      if (utils::compareVersion(current, required) < 0) {
+        warning(sprintf(
+          "Package '%s' version %s found, but %s or higher is required.",
+          pkg, current, required
+        ))
+      } else {
+        message(sprintf("✔ %s (version %s)", pkg, current))
+      }
+    }
+  }
+}
+
+# Run version check
+check_versions(required_versions)
 ```
-
-
-
-
  
