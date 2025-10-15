@@ -11,10 +11,8 @@ The method is designed to estimate factor models, accommodating study-specific a
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
 ├── simulate_data.R # Example script that generates toy data and runs a small simulation using APAFA
-├── R/ # Reusable R functions (utilities, plotting, postprocessing)
-│ ├── utils.R
-│ ├── postprocessing.R
-│ └── data_prep.R
+├── workflow.Rmd #
+├── workflow.md # vignette
 │
 ├── simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── run_simulations.R # Driver script for running the full set of simulation scenarios
@@ -44,8 +42,6 @@ APAFA/
   └──workflow_convergence_uncertainty.R
 ```
 
-- **`Realdata/birds/grid1000.csv`** → (and grid10000.csv) information about the locations (habitat, temperature...)
-- **`Realdata/immune/`** → Scripts for the immune response dataset analysis.  per.
 
 ---
 
