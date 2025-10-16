@@ -1,4 +1,4 @@
-## Example of usage: simulated data
+# Example of usage
 
 Load the file sampler.R that contains the main Gibbs sampler method and
 all library dependencies
@@ -14,8 +14,10 @@ all library dependencies
     #} else {
     #  stop(paste("File not found:", sampler_file))
     #}
-      
-## Generate synthetic data
+    
+## Simulated data
+
+### Generate synthetic data
 In this example we consider  S=3 groups, each of 20 units, p=10 observed varaibles, 3 active shared and 3 active specific factors
 
     #-------------------------------------------------------
@@ -151,7 +153,7 @@ In this example we consider  S=3 groups, each of 20 units, p=10 observed varaibl
     ## [2,]  0.5  0.5  0.5  0.5  0.5  0.5
     ## [3,]  0.5  0.5  0.5  0.5  0.5  0.5
 
-## Initialize the MCMC algorithm
+### Prepare the data in the right format to be passed to the MCMC algorithm
 
     #-------------------------------------------------------
     # Initialize state list for MCMC kernel
@@ -228,7 +230,7 @@ In this example we consider  S=3 groups, each of 20 units, p=10 observed varaibl
     #save the state before initialization (containing the true parameters)
     #saveRDS(copy_state, paste("copy_state", setting))
 
-Now we add Uniform\[-amount, amount\] noise to initialize the model.
+To initialize the chain, starting from the self-generated sample, we add Uniform\[-amount, amount\] noise to initialize the model.
 
     state$Lambda_ = jitter(state$Lambda_, amount = 1)
     state$Lambda = state$Lambda_
@@ -238,8 +240,7 @@ Now we add Uniform\[-amount, amount\] noise to initialize the model.
     state$phi = state$phi_
     state$Sigma = jitter(state$Sigma, amount = 0.1)
 
-Define the number of Gibbs sampler iterations and pre - allocate
-matrices to store results of MCMC
+Define the number of Gibbs sampler iterations and pre allocate matrices to store results of MCMC
 
     maxiter = 5000
 
@@ -269,7 +270,7 @@ matrices to store results of MCMC
     ris_gamma1 = ris_gamma2 = ris_gamma3 = ris_gamma4 = ris_gamma5 = ris_gamma6 =
     matrix(0, ncol = p, maxiter)
 
-## Run the sampler
+### Run the sampler
 
     # Gibbs sampler
     time <- system.time(for (iter in 1:maxiter) {
@@ -356,7 +357,8 @@ matrices to store results of MCMC
     ##    user  system elapsed 
     ## 113.556   2.846 119.173
 
-## Plots: convergence assessments and uncertainty quantification based on posterior
+## Results
+### Plots: convergence assessments and uncertainty quantification based on posterior
 
     # convergence assessment: Compute running loglikelihood
     iter = 1
