@@ -1,12 +1,14 @@
 # APAFA
 **By E. Bortolato & A. Canale**
 
-
 This repository contains the code to reproduce simulations, figures, and real data analysis results from the paper "Adaptive Partition Factor Analysis" by Elena Bortolato and Antonio Canale (https://arxiv.org/html/2410.18939v2)
 
 The method is designed to fit Bayesian (multi-study) factor models, accommodating study-specific and shared components, finding adaptively group-specific structure and latent dimensions - acknowledging potential model misspecification— and does so flexibly to accommodate a wide range of underlying patterns.
 
+To reproduce the results of Section 3, go to URLSIMULATIONS. To reproduce the results of the real data analisis of Section 4, go to URLIMMUNE or URLBIRDS. 
+
 ---
+
 
 ## 📁  Repository
 ```
