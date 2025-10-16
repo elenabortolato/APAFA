@@ -12,7 +12,6 @@ The method is designed to estimate (multi-study) factor models, accommodating st
 ```
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
-├── simulate_data.R # Example script that  runs a  simulation study
 ├── workflow.Rmd # explains in detail how to use the method
 ├── workflow.md # 
 │
@@ -34,6 +33,7 @@ APAFA/
 │
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── figure4.R # Code to reproduce the results of the simuation studies (Figure 4 of the manuscript)
+│ ├── simulate_data.R # Example script that  runs a  simulation study
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ └── long/ # Results of the simulation studies for data in the "long" format (n>p)
 │
