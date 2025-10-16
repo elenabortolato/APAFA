@@ -4,16 +4,16 @@ Load the file sampler.R that contains the main Gibbs sampler method and
 all library dependencies
 
     # Define the path to the sampler script
-    #sampler_file <- "sampler.R"
+    sampler_file <- "sampler.R"
 
     # Check if the file exists before sourcing
-    #if (file.exists(sampler_file)) {
+    if (file.exists(sampler_file)) {
       # Load the sampler that contains the main Gibbs sampler method
-    #  source(sampler_file)
-    #  message("Sampler successfully loaded.")
-    #} else {
-    #  stop(paste("File not found:", sampler_file))
-    #}
+      source(sampler_file)
+      message("Sampler successfully loaded.")
+    } else {
+      stop(paste("File not found:", sampler_file))
+    }
     
 ## Simulated data
 
