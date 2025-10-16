@@ -357,8 +357,10 @@ Define the number of Gibbs sampler iterations and pre allocate matrices to store
     ##    user  system elapsed 
     ## 113.556   2.846 119.173
 
-## Results
-### Plots: convergence assessments and uncertainty quantification based on posterior
+### Results
+Plots inspecting mixing and convergence and showing uncertainty quantification based on posterior.
+
+Compute the loglikelihood
 
     # convergence assessment: Compute running loglikelihood
     iter = 1
@@ -396,7 +398,6 @@ Define the number of Gibbs sampler iterations and pre allocate matrices to store
       #if (iter%%100==0) print(iter)
     }
 
-    
     
 
     # Plot the loglikelihood
