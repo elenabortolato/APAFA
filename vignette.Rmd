@@ -1,5 +1,5 @@
 ---
-title: "APAFA: workflow"
+title: "APAFA: vignette"
 output: html_document
 date: "2025-10-14"
 ---
@@ -10,7 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Example of usage: simulated data
 
-Load the file sampler.R that contains the main Gibbs sampler method and all library  dependencies
+This file explains how to fit a MSF model with APAFA on simulated data. The example runs in approximately 5 minutes.
+
+Start by loading the file sampler.R that contains the main Gibbs sampler method and all library dependencies
+
 ```{r}
 # Define the path to the sampler script
 sampler_file <- "sampler.R"
