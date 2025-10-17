@@ -22,7 +22,7 @@ library(dplyr)
 ``` r
 library(ggplot2)
 library(ggpubr)
-setwd("simulation")
+setwd("Simulations")
 
 RIS1 = readRDS("long/RIS_1.RDS")
 RIS2 = readRDS("long/RIS_2.RDS")
