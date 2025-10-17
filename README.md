@@ -43,7 +43,7 @@ APAFA/
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ └── long/ # Results of the simulation studies for data in the "long" format (n>p)
 │
-└── Supplementary/ # Scripts reproducing additional experiments and  checkst reported in the Supplementary Materials of the paper.
+└── Supplementary/ # Scripts reproducing additional experiments and  checks reported in the Supplementary Materials of the paper.
   ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
   └── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
   └── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
