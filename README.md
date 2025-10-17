@@ -64,7 +64,7 @@ Install all required packages with:
 
 ```r
 install.packages(c(
-  "Rcpp", "RcppEigen", "mvtnorm", "matrixStats", 
+  "Rcpp", "RcppEigen", "RcppArmadillo", "mvtnorm", "matrixStats", 
   "ggplot2", "cowplot", "coda", "tidyverse"
 ))
 
