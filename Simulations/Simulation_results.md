@@ -22,7 +22,7 @@ library(dplyr)
 ``` r
 library(ggplot2)
 library(ggpubr)
-setwd("Simulations")
+setwd("simulation")
 
 RIS1 = readRDS("long/RIS_1.RDS")
 RIS2 = readRDS("long/RIS_2.RDS")
@@ -98,7 +98,9 @@ summary_tab1 <- table1 %>%
     Omega3_IQR = round(-quantile(Omega3, 0.25)+ quantile(Omega3, 0.75),2),
     .groups = "drop"
   )
+```
 
+``` r
 summary_tab1 
 ```
 
@@ -149,7 +151,7 @@ plot1 = ggplot2::ggplot(OUT_ALL, aes(x = setting, y = norm_eta, color =
 plot1
 ```
 
-![](Simulation_results_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](Simulation_results_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 #######################################################
@@ -227,7 +229,9 @@ summary_tab2 <- table2 %>%
     Omega3_IQR = round(-quantile(Omega3, 0.25)+ quantile(Omega3, 0.75),2),
     .groups = "drop"
   )
+```
 
+``` r
 summary_tab2 
 ```
 
@@ -274,7 +278,7 @@ plot2 = ggplot2::ggplot(OUT_ALL, aes(x = setting, y = norm_eta, color =
 plot2
 ```
 
-![](Simulation_results_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](Simulation_results_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 ggpubr::ggarrange(
@@ -289,4 +293,4 @@ ggpubr::ggarrange(
 )
 ```
 
-![](Simulation_results_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Simulation_results_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
