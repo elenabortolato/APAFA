@@ -1,6 +1,8 @@
 # Example of usage
 
-Load the file sampler.R that contains the main Gibbs sampler method and
+This file explains how to fit a MSF model with APAFA on simulated data. The example runs in approximately 5 minutes.
+
+Start by loading the file sampler.R that contains the main Gibbs sampler method and
 all library dependencies
 
     # Define the path to the sampler script
