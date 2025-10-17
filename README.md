@@ -5,9 +5,9 @@ This repository contains the code to reproduce simulations, figures, and real da
 
 The method is designed to fit Bayesian (multi-study) factor models, accommodating study-specific and shared components, finding adaptively group-specific structure and latent dimensions - acknowledging potential model misspecification— and does so flexibly to accommodate a wide range of underlying patterns.
 
-To reproduce the results of Section 3, go to the [Simulations](Simulations/SimWF.md) workflow. 
-To reproduce the results of the real data analysis of Section 4, go to the [Birds workflow](Real_Data/Birds_WF.md) or the [Immune workflow](Real_Data/Immune_WF.md) in the [Real_Data](https://github.com/elenabortolato/APAFA/tree/main/Real_data) folder. 
-Results contained in the Supplementary materials are obtained by running the scritps in the [Supplementary](https://github.com/elenabortolato/APAFA/tree/main/Supplementary) folder.
+To reproduce the results of Section 3 of the paper, go to the [Simulations](Simulations/SimWF.md) workflow. 
+To reproduce the results of the real data analysis of Section 4 of the paper, go to the [Birds workflow](Real_Data/Birds_WF.md) or the [Immune workflow](Real_Data/Immune_WF.md) in the [Real_Data](Real_data) folder. 
+Results contained in the Supplementary Materials are obtained by running the scritps in the [Supplementary](Supplementary) folder.
 
  
 
