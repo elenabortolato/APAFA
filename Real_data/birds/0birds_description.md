@@ -7,4 +7,4 @@ the folder /data comprises the files:
 - grid1000.csv and grid10000.csv contain information about the locations (habitat, temperature...)
 - birds_results.RData contatining the results of the analysis
 
-  the folder /birdsms-files contains the figures generated from the markdown.
+the folder /birdsms-files contains the figures generated from the markdown.
