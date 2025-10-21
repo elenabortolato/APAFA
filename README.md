@@ -34,7 +34,7 @@ APAFA/
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │   └── birds_results.RData # results of the analysis.
 │ └── immune/ # Immune response dataset (Section 4.2)
-│   ├──immune_data/.RDS
+│   ├──immune_data/immune_data.rda # dataset
 |   ├──immune_workflow.md # output of the analysis
 │   └──immune_workflow.Rmd # workflow to reproduce the analysis
 │
