@@ -52,7 +52,7 @@ APAFA/
   ├── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
   ├── covariance_uncertainty.R # code for obtaining Figure SM16, SM17, SM18 and SM19 in the supplementary Materials
   ├── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
-  └── identifiability_test.R  # code for obtaining Figure SM6 in the supplementary Materials
+  └── identifiability_test.R  # code for obtaining Figure SM6 and SM7 in the supplementary Materials
   
 ```
 
@@ -76,7 +76,7 @@ install.packages(c(
 
 # ---- Optional packages ----
 install.packages(c(
-  "ggpubr", "reshape2", "patchwork"
+  "ggpubr", "reshape2", "patchwork", "rgl"
 ))
 
 # ---- Version checks ----
