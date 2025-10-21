@@ -6,12 +6,10 @@ output: github_document
 ---
 
 
-## R Markdown
-
+ 
 
 ```{r  }
-setwd("/Users/elenabortolato/Desktop/FactorModels/data_immune")
-#saveRDS(file="immune_data.RDS",y)  
+setwd("/data_immune")
 y=readRDS(file="immune_data.RDS")
 p=ncol(y)
 n=nrow(y)
@@ -167,7 +165,7 @@ colMeans(ris_tau_eta)
 ```{r}
 # Figure 9: contribution of Gamma Gamma
  # Gamma matrix
-if(1==0){
+if(1==1){
   G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ]))
    
   #reorder specific factors according to activation %
