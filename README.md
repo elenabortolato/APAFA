@@ -74,7 +74,7 @@ install.packages(c(
   "ggplot2", "cowplot", "coda", "tidyverse"
 ))
 
-# ---- Optional packages ----
+# ---- Optional packages ---- for reproducing figures in the supplementary materials
 install.packages(c(
   "ggpubr", "reshape2", "patchwork", "rgl"
 ))
