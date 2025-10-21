@@ -4,7 +4,6 @@ library(Rcpp)
 library(mvtnorm)
 library(MCMCpack)
 library(calculus)
-library(unbiasedmcmc) 
 library(pgdraw)
 library(ggplot2) 
 #working directory
@@ -230,6 +229,7 @@ axis(2, at=y/9*1.091-0.1,labels = 1:9)
 abline(v=0)
 abline(h=1.06)
 abline(h=-0.06)
+
 
 
 
