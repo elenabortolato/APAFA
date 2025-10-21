@@ -85,7 +85,6 @@ required_versions <- list(
   mvtnorm     = "1.3.1",
   MCMCpack    = "1.7.1",
   calculus    = "1.0.1",
-  unbiasedmcmc = "0.3.0",
   pgdraw      = "1.1",
   ggplot2     = "3.5.1"
 )
