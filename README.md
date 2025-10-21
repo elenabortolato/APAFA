@@ -82,11 +82,18 @@ install.packages(c(
 # ---- Version checks ----
 required_versions <- list(
   Rcpp        = "1.0.14",
+  RcppEigen = "0.3.4.0.2",
+  RcppArmadillo = "15.0.2.2",
   mvtnorm     = "1.3.1",
   MCMCpack    = "1.7.1",
   calculus    = "1.0.1",
   pgdraw      = "1.1",
   ggplot2     = "3.5.1"
+  matrixStats = "1.4.1",
+  ggplot2=       "4.0.0",
+  cowplot=     "1.1.3",  
+  coda =  "0.19.4.1",
+  tidyverse =   "2.0.0" 
 )
 
 check_versions <- function(pkgs) {
