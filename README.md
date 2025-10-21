@@ -47,6 +47,7 @@ APAFA/
 ├ └── Simulation_results_files/ # figures for the Simulation_results.Rmd
 │
 └── Supplementary/ # Scripts reproducing additional experiments and  checks reported in the Supplementary Materials of the paper.
+  ├── beta_plot.R # code for obtaining Figure SM11 SM12 and SM13 in the supplementary Materials
   ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
   ├── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
   ├── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
