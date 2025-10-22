@@ -38,8 +38,8 @@ APAFA/
 │ └── immune/ # Immune response dataset (Section 4.2)
 │   ├── 0immune_descripton_folder.md # description of the folder
 │   ├── immune_data/immune_data.rda # dataset
-|   ├── imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM20
-|   ├── imputation_TETRIS.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM21
+|   ├── imputation_APAFA.R # code for the prediction exercise (figure SM20)
+|   ├── imputation_TETRIS.R # code for the prediction exercise (figure SM21)
 |   ├── immune_workflow.md # output of the analysis
 │   └── immune_workflow.Rmd # workflow to reproduce the analysis
 │
