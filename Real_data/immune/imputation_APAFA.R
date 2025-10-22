@@ -1,17 +1,5 @@
-library(MSFA)
-
-
-
-library(BiocManager)
-library(Rcpp)
-library(mvtnorm)
-library(MCMCpack)
-library(calculus)
-library(unbiasedmcmc) 
-library(pgdraw)
-library(ggplot2) 
 #working directory
-setwd("C:/Users/Asus/Dropbox/FactorModels/data_immune")
+setwd("data_immune")
 #saveRDS(file="immune_data.RDS",y)  
 y=readRDS(file="immune_data.RDS")
 n=sum(ns) # total units
@@ -174,12 +162,11 @@ for (iter in iter:maxiter){
   }
 
 # RESULTS:
-memory.limit(999999)
+#memory.limit(999999)
 # for APAFA
-load("immune_res_imputation.RData")
-y=readRDS(file="immune_data.RDS")
+#load("immune_res_imputation.RData")
+#y=readRDS(file="immune_data.RDS")
  
-  
 MSE=rep(0,10000)
 iter=1                         
 for(iter in iter:10000) MSE[iter]=  sum((ris_y[iter,,]-y)^2)/30
