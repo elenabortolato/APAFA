@@ -53,8 +53,6 @@ APAFA/
   ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
   ├── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
   ├── covariance_uncertainty.R # code for obtaining Figure SM16, SM17, SM18 and SM19 in the supplementary Materials
-  ├──imputation_APAFA.R # Script to reproduce figure SM19 in the Supplementary materials
-  ├──imputation_TETRIS.R # Script to reproduce figure SM20 in the Supplementary materials
   ├── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
   └── identifiability_test.R  # code for obtaining Figure SM6, SM7 and SM8 in the supplementary Materials
   
