@@ -46,6 +46,7 @@ APAFA/
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
 │ ├── simulate_data.R # Example script that  runs a  simulation study
+│ ├── example_out.R # Example script for producing the files in the "long" and "large" folders, Figures SM9 and SM10.
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ ├── long/ # Results of the simulation studies for data in the "long" format (n>p)
 ├ └── Simulation_results_files/ # figures for the Simulation_results.Rmd
