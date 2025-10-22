@@ -43,7 +43,7 @@ APAFA/
 |   ├── immune_workflow.md # output of the analysis 
 │   └── immune_workflow.Rmd # workflow to reproduce the analysis (Figures 7, 9)
 │
-├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
+├── Simulations/ # Code + results to reproduce simulation studies (Section 3)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
 │ ├── simulate_APAFA.R # Example script that  runs a  simulation study (APAFA)
 │ ├── simulate_TETRIS.R # Example script that  runs a  simulation study (TETRIS)
