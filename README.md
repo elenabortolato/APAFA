@@ -40,8 +40,8 @@ APAFA/
 │   ├── immune_data/immune_data.rda # dataset
 |   ├── imputation_APAFA.R # code for the prediction exercise (figure SM20)
 |   ├── imputation_TETRIS.R # code for the prediction exercise (figure SM21)
-|   ├── immune_workflow.md # output of the analysis
-│   └── immune_workflow.Rmd # workflow to reproduce the analysis
+|   ├── immune_workflow.md # output of the analysis 
+│   └── immune_workflow.Rmd # workflow to reproduce the analysis (Figures 7, 9)
 │
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
