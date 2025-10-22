@@ -8,7 +8,7 @@ setwd("data_immune")
 y=readRDS(file="immune_data.RDS")
 p=ncol(y)
 n=nrow(y)
-ns=c(85, 140, 578, 195)
+ns=c(285, 140, 578, 195)
 S=4
 ######################################################
 #initialization
