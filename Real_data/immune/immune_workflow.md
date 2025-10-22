@@ -292,3 +292,79 @@ if(1==1){
   image(GG9, axes=F,xlab=expression(Gamma[9]*Gamma[9]^T),col = colors[sort.list(GG9)])
 } 
 ```
+
+# Figurure 7
+
+```{r}
+# Figure 7
+ps_hat=apply(ris_ps,c(2,3),function(x) mean((x)))
+phi_hat=apply(ris_phi[8000:10000,,],c(2,3),function(x) mean((x)))
+
+par(mfrow=c(1,1))
+par(mar=c(4,4,4,4))
+image(1-(phi_hat[,1:9]), axes=F, col=grey.colors(3), xlab="units",ylab=expression(Phi))
+abline(v=cumsum(ns/n))
+sapply(1:9,function (k) expression(phi[k]))
+#axis(philab, at=x.at)
+philab=c("phi[1]","phi[2]","phi[3]","phi[4]","phi[5]","phi[6]","phi[7]","phi[8]","phi[9]")
+y=1:9
+axis(2, at=y/9*1.091-0.1,labels = 1:9)
+abline(v=0)
+abline(h=1.06)
+abline(h=-0.06)
+
+
+
+```{r}
+#if (!require("BiocManager", quietly = TRUE))
+ #   install.packages("BiocManager")
+
+#BiocManager::install("curatedOvarianData")
+library(curatedOvarianData)
+#data(package = "curatedOvarianData")
+
+data("GSE9891_eset")
+dim(GSE9891_eset)
+
+data("GSE20565_eset")
+dim(GSE20565_eset)
+
+data(TCGA_eset)
+dim(TCGA_eset)
+
+data("GSE26712_eset")
+dim(GSE26712_eset)
+
+hist=c(GSE9891_eset$histological_type,GSE20565_eset$histological_type,
+       TCGA_eset$histological_type, GSE26712_eset$histological_type)
+table(hist)
+boxplot(phi_hat[,1])
+points(c(1,1,1,1,1,1),phi_hat[which(hist=="clearcell"),1], col=2, pch="X")
+legend("topleft","clearcell", pch="X", col=2)
+
+ 
+boxplot(phi_hat[,3])
+table(site)
+points(rep(1,7),phi_hat[which(hist=="mucinous"),3], col=2, pch="X")
+legend("topleft","mucinous", pch="X", col=2)
+
+
+boxplot(phi_hat[,4])
+table(site)
+points(rep(1,7),phi_hat[which(hist=="other"),4], col=2, pch="X")
+legend("topleft","other", pch="X", col=2)
+
+
+boxplot(phi_hat[,3])
+points(c(1,1,1,1,1,1,1,1),phi_hat[which(site=="ft"),3], col=2, pch="X")
+legend("topleft","other", pch="X", col=2)
+
+boxplot(phi_hat[,8])
+table(site)
+points(rep(1,26),phi_hat[which(hist=="endo"),8], col=2, pch="X")
+legend("topleft","endo", pch="X", col=2)
+ 
+
+
+
+```
