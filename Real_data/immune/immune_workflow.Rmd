@@ -161,10 +161,9 @@ colMeans(ris_tau_eta)
 
 
 
+# Figure 9: contribution of Gamma Gamma^T
 
 ```{r}
-# Figure 9: contribution of Gamma Gamma
- # Gamma matrix
 if(1==1){
   G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ]))
    
@@ -225,7 +224,11 @@ if(1==1){
   image(GG8, axes=F,xlab=expression(Gamma[8]*Gamma[8]^T),col = colors[sort.list(GG8)])
   image(GG9, axes=F,xlab=expression(Gamma[9]*Gamma[9]^T),col = colors[sort.list(GG9)])
 } 
+```
 
+# Figure 7: active specific factors
+
+```{r}
 # Figure 7
 ps_hat=apply(ris_ps,c(2,3),function(x) mean((x)))
 phi_hat=apply(ris_phi[8000:10000,,],c(2,3),function(x) mean((x)))
