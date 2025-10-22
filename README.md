@@ -25,7 +25,7 @@ APAFA/
 │ ├── birds/ # Bird community study (Section 4.1)
 │ │ ├── 0birds_folder_descriprion.md # description of the folder
 │ │ ├── birdsmd.Rmd # Performs the full real-data analysis for the birds example
-│ │ ├── birdsmd.md # output of the full real-data analysis for the birds example
+│ │ ├── birdsmd.md # output of the full real-data analysis for the birds example, Figure 6
 │ │ └── data/ # data
 │ │   ├── data.csv # Count data: species × locations/time 
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format)
