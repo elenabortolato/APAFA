@@ -14,12 +14,12 @@ Results contained in the Supplementary Materials are obtained by running the scr
 ---
 
 
-## 📁  Repository
+## 📁  Repository map
 ```
 APAFA/
 ├── sampler.R # Core Gibbs sampler implementing the APAFA model
 ├── vignette.Rmd # explains in detail how to use the method
-├── vignette.md # 
+├── vignette.md # knitted file from  vignette.Rmd
 │
 ├── Realdata/
 │ ├── birds/ # Bird community study (Section 4.1)
@@ -33,6 +33,7 @@ APAFA/
 │ │   ├── grid1000.csv # Location-level covariates for 1,000 locations (habitat, temperature, ...)
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │   └── birds_results.RData # results of the analysis.
+│ │ 
 │ └── immune/ # Immune response dataset (Section 4.2)
 │   ├──immune_data/immune_data.rda # dataset
 |   ├──imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM20
