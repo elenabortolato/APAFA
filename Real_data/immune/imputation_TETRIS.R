@@ -1,22 +1,4 @@
-rm(list=ls())
-
-# tetris for  immune
-library(MASS)
-library(statmod)
-#install.packages("statmod")
-library(matlab)
-#install.packages("matlab")
-library(combinat)
-#install.packages("combinat")
-library(R.utils)
-#install.packages("R.utils")
-library(matrixcalc)
-#install.packages("matrixcalc")
-#install.packages("clue")
-library(clue)
-library(nloptr)
-
-# Sets parameters and prior hyperparameters for posterior sampling
+# define locally the TETRS sampler og Grabski et al. 2023
 
 
 # Gibbs sampler for Tetris
