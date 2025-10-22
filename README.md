@@ -31,16 +31,17 @@ APAFA/
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format)
 │ │   ├── traits.csv # Species traits (e.g., mass, habitat)
 │ │   ├── grid1000.csv # Location-level covariates for 1,000 locations (habitat, temperature, ...)
+│ │   ├── grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
 │ │   └── birds_results.RData # results of the analysis.
 │ │ 
 │ └── immune/ # Immune response dataset (Section 4.2)
-│   ├──immune_data/immune_data.rda # dataset
-|   ├──imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM20
-|   ├──imputation_TETRIS.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM21
-|   ├──immune_workflow.md # output of the analysis
-|   ├──immune_workflow.md # output of the analysis
-│   └──immune_workflow.Rmd # workflow to reproduce the analysis
+│   ├── 0immune_descripton_folder.md # description of the folder
+│   ├── immune_data/immune_data.rda # dataset
+|   ├── imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM20
+|   ├── imputation_TETRIS.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM21
+|   ├── immune_workflow.md # output of the analysis
+│   └── immune_workflow.Rmd # workflow to reproduce the analysis
 │
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
