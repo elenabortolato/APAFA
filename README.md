@@ -50,7 +50,7 @@ APAFA/
 │ │     # Figures 3 and 5, Figures SM9 and SM10 in the supplementary materials
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ ├── long/ # Results of the simulation studies for data in the "long" format (n>p)
-├ └── Simulation_results_files/ # figures for the Simulation_results.Rmd
+│ └── Simulation_results_files/ # figures for the Simulation_results.Rmd
 │
 └── Supplementary/ # Scripts reproducing additional experiments and  checks reported in the Supplementary Materials of the paper.
   ├── beta_plot.R # reproduces Figure SM11 SM12 and SM13 in the supplementary Materials
