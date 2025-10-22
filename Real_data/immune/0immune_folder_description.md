@@ -2,4 +2,4 @@ This folder contains the scripts to reporduce the analysis in the  real data exa
 
 - immune_MCMC_and_results.R contains the code for analyzing the immune dataset 
 - immune_data the dataset
-- imputation_APAFA.R and imputation_TETRIS.R. The code for reproduciong Figures 17-18 of the Supplementary materials (
+- immune_imputation.R and immune_imputation_TETRIS.R. The code for reproduciong Figures 17-18 of the Supplementary materials 
