@@ -226,6 +226,22 @@ if(1==1){
   image(GG9, axes=F,xlab=expression(Gamma[9]*Gamma[9]^T),col = colors[sort.list(GG9)])
 } 
 
+# Figure 7
+ps_hat=apply(ris_ps,c(2,3),function(x) mean((x)))
+phi_hat=apply(ris_phi[8000:10000,,],c(2,3),function(x) mean((x)))
+
+par(mfrow=c(1,1))
+par(mar=c(4,4,4,4))
+image(1-(phi_hat[,1:9]), axes=F, col=grey.colors(3), xlab="units",ylab=expression(Phi))
+abline(v=cumsum(ns/n))
+sapply(1:9,function (k) expression(phi[k]))
+#axis(philab, at=x.at)
+philab=c("phi[1]","phi[2]","phi[3]","phi[4]","phi[5]","phi[6]","phi[7]","phi[8]","phi[9]")
+y=1:9
+axis(2, at=y/9*1.091-0.1,labels = 1:9)
+abline(v=0)
+abline(h=1.06)
+abline(h=-0.06)
 ```
 
 
