@@ -35,8 +35,8 @@ APAFA/
 │ │   └── birds_results.RData # results of the analysis.
 │ └── immune/ # Immune response dataset (Section 4.2)
 │   ├──immune_data/immune_data.rda # dataset
-|   ├──imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA|
-|   ├──imputation_TETRIS.R # code for the prediction-validation exercise of Section 4.2 with APAFA
+|   ├──imputation_APAFA.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM20
+|   ├──imputation_TETRIS.R # code for the prediction-validation exercise of Section 4.2 with APAFA and figure SM21
 |   ├──immune_workflow.md # output of the analysis
 |   ├──immune_workflow.md # output of the analysis
 │   └──immune_workflow.Rmd # workflow to reproduce the analysis
