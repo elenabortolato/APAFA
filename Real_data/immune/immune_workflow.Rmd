@@ -226,7 +226,7 @@ if(1==1){
 } 
 ```
 
-# Figure 7: active specific factors
+# Figure 7
 
 ```{r}
 # Figure 7
@@ -245,7 +245,59 @@ axis(2, at=y/9*1.091-0.1,labels = 1:9)
 abline(v=0)
 abline(h=1.06)
 abline(h=-0.06)
+
+
+
+```{r}
+#if (!require("BiocManager", quietly = TRUE))
+ #   install.packages("BiocManager")
+
+#BiocManager::install("curatedOvarianData")
+library(curatedOvarianData)
+#data(package = "curatedOvarianData")
+
+data("GSE9891_eset")
+dim(GSE9891_eset)
+
+data("GSE20565_eset")
+dim(GSE20565_eset)
+
+data(TCGA_eset)
+dim(TCGA_eset)
+
+data("GSE26712_eset")
+dim(GSE26712_eset)
+
+hist=c(GSE9891_eset$histological_type,GSE20565_eset$histological_type,
+       TCGA_eset$histological_type, GSE26712_eset$histological_type)
+table(hist)
+boxplot(phi_hat[,1])
+points(c(1,1,1,1,1,1),phi_hat[which(hist=="clearcell"),1], col=2, pch="X")
+legend("topleft","clearcell", pch="X", col=2)
+
+ 
+boxplot(phi_hat[,3])
+table(site)
+points(rep(1,7),phi_hat[which(hist=="mucinous"),3], col=2, pch="X")
+legend("topleft","mucinous", pch="X", col=2)
+
+
+boxplot(phi_hat[,4])
+table(site)
+points(rep(1,7),phi_hat[which(hist=="other"),4], col=2, pch="X")
+legend("topleft","other", pch="X", col=2)
+
+
+boxplot(phi_hat[,3])
+points(c(1,1,1,1,1,1,1,1),phi_hat[which(site=="ft"),3], col=2, pch="X")
+legend("topleft","other", pch="X", col=2)
+
+boxplot(phi_hat[,8])
+table(site)
+points(rep(1,26),phi_hat[which(hist=="endo"),8], col=2, pch="X")
+legend("topleft","endo", pch="X", col=2)
+ 
+
+
+
 ```
-
-
-
