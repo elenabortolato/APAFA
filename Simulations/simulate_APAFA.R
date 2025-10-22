@@ -1,3 +1,5 @@
+# simulations with APAFA
+#===========================================
 #this file reproduces the simulation study with large p  (p=1000)
 rm(list=ls())
 source("sampler.R")
