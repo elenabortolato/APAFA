@@ -32,7 +32,7 @@ APAFA/
 │ │   ├── traits.csv # Species traits (e.g., mass, habitat)
 │ │   ├── grid1000.csv # Location-level covariates for 1,000 locations (habitat, temperature, ...)
 │ │   ├── grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
-│ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
+│ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv 
 │ │   └── birds_results.RData # results of the analysis.
 │ │ 
 │ └── immune/ # Immune response dataset (Section 4.2)
@@ -46,18 +46,19 @@ APAFA/
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 2)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
 │ ├── simulate_data.R # Example script that  runs a  simulation study
-│ ├── example_out.R # Example script for producing the files in the "long" and "large" folders, Figures SM9 and SM10.
+│ ├── example_out.R # Example script for producing the files in the "long" and "large" folders
+│ │     # Figures 3 and 5, Figures SM9 and SM10 in the supplementary materials
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ ├── long/ # Results of the simulation studies for data in the "long" format (n>p)
 ├ └── Simulation_results_files/ # figures for the Simulation_results.Rmd
 │
 └── Supplementary/ # Scripts reproducing additional experiments and  checks reported in the Supplementary Materials of the paper.
-  ├── beta_plot.R # code for obtaining Figure SM11 SM12 and SM13 in the supplementary Materials
-  ├── effect_standardize_factors.R # code for obtaining Figure SM1 and SM2 in the supplementary Materials
-  ├── convergence_uncertainty.R # code for obtaining Figure SM3 and SM14 in the supplementary Materials
-  ├── covariance_uncertainty.R # code for obtaining Figure SM16, SM17, SM18 and SM19 in the supplementary Materials
-  ├── sensitivity.R # code for obtaining Figure SM4 and SM5 in the supplementary Materials
-  └── identifiability_test.R  # code for obtaining Figure SM6, SM7 and SM8 in the supplementary Materials
+  ├── beta_plot.R # reproduces Figure SM11 SM12 and SM13 in the supplementary Materials
+  ├── effect_standardize_factors.R # reproduces Figure SM1 and SM2 in the supplementary Materials
+  ├── convergence_uncertainty.R # reproduces Figure SM3 and SM14 in the supplementary Materials
+  ├── covariance_uncertainty.R # reproduces Figure SM16, SM17, SM18 and SM19 in the supplementary Materials
+  ├── sensitivity.R # reproduces Figure SM4 and SM5 in the supplementary Materials
+  └── identifiability_test.R  # reproduces Figure SM6, SM7 and SM8 in the supplementary Materials
   
 ```
 
