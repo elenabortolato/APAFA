@@ -47,7 +47,8 @@ APAFA/
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
 │ ├── simulate_APAFA.R # Example script that  runs a  simulation study (APAFA)
 │ ├── simulate_TETRIS.R # Example script that  runs a  simulation study (TETRIS)
-│ ├── example_out.R # Example script for producing the files in the "long" and "large" folders
+│ ├── example_out_APAFA.R # Example script for producing the files in the "long" and "large" folders (APAFA)
+│ ├── example_out_TETRIS.R # Example script for producing the files in the "long" and "large" folders (TETRIS)
 │ │     # Figures 3 and 5, Figures SM9 and SM10 in the supplementary materials
 │ ├── large/ # Results of the simulation studies for data in the "large" format (n<p)
 │ ├── long/ # Results of the simulation studies for data in the "long" format (n>p)
