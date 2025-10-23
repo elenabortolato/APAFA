@@ -26,8 +26,8 @@ APAFA/
 ├── Realdata/
 │ ├── birds/ # Bird community study (Section 4.1)
 │ │ ├── 0birds_folder_descriprion.md # description of the folder
-│ │ ├── birdsmd.Rmd # Performs the full real-data analysis for the birds example
-│ │ ├── birdsmd.md # output of the full real-data analysis for the birds example, Figure 6
+│ │ ├── birds.Rmd # Performs the full real-data analysis for the birds example
+│ │ ├── birds.md # output of the full real-data analysis for the birds example, Figure 6
 │ │ └── data/ # data
 │ │   ├── data.csv # Count data: species × locations/time 
 │ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format)
@@ -42,8 +42,8 @@ APAFA/
 │   ├── immune_data/immune_data.rda # dataset
 |   ├── imputation_APAFA.R # code for the prediction exercise (figure SM20)
 |   ├── imputation_TETRIS.R # code for the prediction exercise (figure SM21)
-|   ├── immune_workflow.md # output of the analysis 
-│   └── immune_workflow.Rmd # workflow to reproduce the analysis (Figures 7, 9)
+|   ├── immune.md # output of the analysis 
+│   └── immune.Rmd # workflow to reproduce the analysis (Figures 7, 9)
 │
 ├── Simulations/ # Code + results to reproduce simulation studies (Section 3)
 │ ├── Simulation_results.Rmd # Reproduces the results of the simuation studies (Tables 1 and 2 and Figure 4 of the manuscript)
