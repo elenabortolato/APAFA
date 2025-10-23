@@ -4,25 +4,10 @@ Simulation results
 This code reproduces Tables 1 and 2 and Figure 4:
 
 ``` r
-rm(list = ls())
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(ggplot2)
 library(ggpubr)
-setwd("Simulations")
+
 
 RIS1 = readRDS("long/RIS_1.RDS")
 RIS2 = readRDS("long/RIS_2.RDS")
