@@ -1,7 +1,7 @@
 ---
-title: "BIRDS"
-author: "EB"
-date: '2025-10-20'
+title: "Bird species occurence dataset"
+author: "Bortolato, E. and Canale, A."
+date: 'October 2025'
 output: github_document
 ---
 
@@ -9,137 +9,73 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-```{r}
-setwd("C:/Users/Asus/Desktop/FactorModels/birds/data")
-da = read.csv("data.csv", stringsAsFactors=TRUE)
-#source("sampler.R")
+```{r, echo=FALSE}
+library(dplyr)
+#source("../../sampler.R")
 ```
  
 
-## Birds co-occurrence
+## Description
 
-This script reproduces the analysis of the "birds" dataset (Section 4.1).
-The dataset contains information on the co-occurrence patterns of $p=50$  bird species in Finland; data were collected over nine years (2006-2014) across $S=200$ locations.
+This script reproduces the analysis of the *birds* dataset (Section 4.1). The dataset records co-occurrence patterns of \(p=50\) bird species observed in Finland over nine years (2006–2014) across $S=200$ locations.
 
-In this data analysis exercise, we are interested in fitting a factor model to analyze
-the bird species occurrence in a unsupervised manner, including only the "group" information (observation site),
-as the APAFA model foresees.
+We fit a factor model to study species occurrences using only the *group* information (observation site), as specified in the APAFA framework.
 
-Then, we will investigate the relation between environmental covariates available
-and latent factors found by the model a posteriori
+Subsequently, we examine the relationships between the available environmental covariates and the latent factors inferred by the model *a posteriori*.
 
 
+## Data preprocessing 
 
-##Prepare the data
+Let $Y$ be the $n\times p$ matrix containing  the counts (presence/absence) of species in the S=200 location (group) over time.
 
-Y is the (nxp) matrix containing  the counts (as presence/absence) of species (p=50)  in the S=200 location (group) over time (average group dimension 4.5).
+ 
+
 ```{r}
-da = read.csv( ( "data/data.csv"), stringsAsFactors=TRUE)
-
-colnames(da)[-c(1:9)]
-Y = matrix((da[, -c(1:9)]) > 0, nrow = nrow(da))
-Y = apply(Y, MARGIN = 2, FUN = as.numeric)
-head(Y)
-colnames(Y) = colnames(da)[-c(1:9)]
-colnames(Y)
+data = read.csv( ("data/data.csv"), stringsAsFactors=TRUE)
+Y = data %>%
+  select(-c(1:9)) %>%
+  as.matrix()
 ```
 
+We next load the information on the species traits:
 
 ```{r}
-# We next read the datafile containing species traits, and include in the TrData dataframe data on migratory strategy and body mass
-alltraits = read.csv(file.path("data/traits.csv"), stringsAsFactors = TRUE)
-cbind(as.character(alltraits[,1]), (colnames(da)[-c(1:9)]))
-rownames(alltraits) # 50 species: matches the p=50 columns of the Y matrix
-TrData = data.frame(Species = alltraits$Species, Migration=alltraits$Migration, LogMass = log(alltraits$Mass))
-# scale the numeric data
-TrData$LogMass = scale(TrData$LogMass)
-
-
-# X and Traits formulae
-XFormula = ~ hab + poly(clim, degree = 2,raw = TRUE) -1
-TrFormula = ~ Migration + LogMass -1
-
-
-# we now should find groups of birds defined by the philogenetic tree
-#install.packages("ape")
-library(ape)
-phyloTree = read.tree("data/CTree.tre")
-plot(phyloTree)
-
-
-# from pica pica to prunella modularis (40) we have the same order: passeriformes
-# dendrocopos_major and dryocopus_martius has order piciformes
-#  Cuculiformes
-#  gruiformes
-#  Charadriiformes
-#  Columbiformes
-#  tetrao tetrix
-# 7 different orders with one of them that has 40 elements: not so beautiful.
-
-# to separate the big group we can consider the family or superfamily
-# 1-5 corvidae
-# 6-18 Sylvioidea
-# 19 Certhioidea
-# 20-29 muscicapoidea
-# 30 rguloidea
-# 31-40 passeroidea
-# an alternative is using
-# corvidae (5) - Sylvioidea (13) - muscicapoidea (10) - passeroidea (10) as further variables.
-# we can decide to ignore or consider also picidae (2) - Scolopacidae (3)
-
-# Finally we identified 4 or 6 group variables (depending if we ignore the smallest groups or not).
-
-# New TrData
-
-corvoidea =  sylvioidea = muscicapoidea = passeroidea = picidae = scolopacidae = rep(0, 50)
-corvoidea[which(colnames(Y) %in% phyloTree$tip.label[1:5])] = 1
-sylvioidea[which(colnames(Y) %in% phyloTree$tip.label[6:18])] = 1
-muscicapoidea[which(colnames(Y) %in% phyloTree$tip.label[20:29])] = 1
-passeroidea[which(colnames(Y) %in% phyloTree$tip.label[31:40])] = 1
-picidae[which(colnames(Y) %in% phyloTree$tip.label[41:42])] = 1
-scolopacidae[which(colnames(Y) %in% phyloTree$tip.label[45:47])] = 1
-
-TrData_taxonomy = data.frame(TrData,
-                             corvoidea,
-                             sylvioidea,
-                             muscicapoidea,
-                             passeroidea,
-                             picidae,
-                             scolopacidae)
+traits <- read.csv("traits.csv") %>% 
+  mutate(Migration = as.factor(Migration)) %>% 
+  mutate(Species = as.factor(Species))
 TrFormula_taxonomy = ~ Migration + LogMass + corvoidea +
   sylvioidea + muscicapoidea + passeroidea + picidae + scolopacidae - 1
-TrData_taxonomy[, 4]
 ```
+ 
+## Initializations 
 
-## Prepare data to fit the model
-
+We define the latent dimensions and group-specific sample sizes
 ```{r}
-# maximum number of factors
 d = 10
 k = 10
 p = ncol(Y)
 
-ns = table(da$Route) # units in each study
-S = length(unique(da$Route)) # studies
+ns = table(data$Route) # units in each study
+S = length(unique(data$Route)) # studies
 n = sum(ns) # total units in all studies
+```
 
-#shared latent loadings and factors
+Initialization of shared loadings and factors
+
+```{r}
 shared_loadings = rnorm(p * d, sd = 1)
 Lambda = matrix(shared_loadings, ncol = d, nrow = p)
-Lambda
 eta = matrix(NA, ncol = d, nrow = n)
 for (h in 1:d) {
   eta[, h] = rnorm(n)
 }
-# specific active factors
-ks = c(rep(1, S))#specific factors study (important just for the ground truth in simulations)
+```
+
+Initialization of specific loadings and factors and related quantities
+
+```{r}
+ks = c(rep(1, S)) #specific factors study (important just for the ground truth in simulations)
 ks[cumsum(ks) > k] = 0 # set some factors to "inactive"
-sum(ks)
 
 #assign group labels (location labels)
 group = rep(NA, n)
@@ -148,7 +84,6 @@ for (s in 1:S) {
   nscum = sum(ns[1:s])
   group[nscumpre:nscum] = s
 }
-group
 table(group)
 # convert into dummy variables the group labels
 X = matrix(NA, ncol = S, nrow = n)
@@ -166,10 +101,12 @@ for (h in 1:k) {
   phi[i, h] = phi_[i, h] * (group[i] == h) # set 0s blocks of different groups
 }
 }
-head(phi,9)
 ```
 
 ## Set prior hyperparameters
+
+We set prior hyperparameters as
+
 ```{r}
 alpha_eta = 5 # number of active shared factors a priori
 v_eta = c(rbeta(d - 1, shape1 = 1, shape2 = alpha_eta), 1)
@@ -181,13 +118,10 @@ w_phi = v_phi * c(1, cumprod(1 - v_phi[-k]))                     # weights
 z_phi = rep(k, k)
 whichgroup = unique(sapply(1:n , function (k)
   (which(X[k, ] == 1))))
-
-# initailize regression coefficients for modelling the specific factors' activation pattern
-# based on group labels
 betas = matrix(0, ncol = k, nrow = S)
 ```
 
-## define the state of the MCMC chain
+## Define the state of the MCMC chain
 
 ```{r}
 state = list(
@@ -226,19 +160,20 @@ state = list(
   v_phi = v_phi,
   alpha_eta = 5,
   alpha_phi = 5,
-  # equal tO expected n.of active factors
+  # equal to expected n.of active factors
   betas = betas,
   ps = matrix(rbinom(n * k, 1, 0.1), ncol = k)
 )
-
 copy_state = state
 ```
 
 ## Run the Gibbs sampler
 
+In the following we run the Gibbs sampler. Note that `run` is set to `FALSE` to avoid running the Gibbs sampler (approximately 3 or 4 hours depending on your computer). To re-run the analysis change `run = FALSE` into `run = TRUE`.  
+
 ```{r}
+run = FALSE
 Gaussian = F
-#pre-allocate memory for results
 maxiter = 1
 ris_phi = array(dim = c(maxiter, dim(state$phi)))
 ris_eta = array(dim = c(maxiter, dim(state$eta)))
@@ -253,12 +188,9 @@ ris_tau_eta = array(dim = c(maxiter, length(state$tau_eta)))
 ris_tau_phi = array(dim = c(maxiter, length(state$tau_phi)))
 
 set.seed(111)
-
 maxiter=10000
-#maxiter=10000
 iter=1
-run=F
-if (run==T){
+if (run==TRUE){
 for (iter in 1:maxiter) {
   cat(iter)
   state = Gibbs_Kernel_non_gauss(state)
@@ -286,44 +218,43 @@ for (iter in 1:maxiter) {
     }
 }
 }
-#save.image("birds_results.RData")
+if (run==TRUE) save.image("birds_results.RData")
 ```
 
-# Upload results
+# Load the results
 
 ```{r}
 load("birds_results.RData")
 ```
 
+# Plots
+
+The first specific factor is associated to the type of habitat
 
 ```{r}
 par(mfrow=c(1,1))
-#specific factors vs type of habitat
 levels(da[,6])=c("Broadleaved","Conifer","Open","Urban","Wetlands")
-for (i in 6:6) plot(colMeans(ris_phi[5000:10000,,1])~da[,i],
-                    xlab=colnames(da)[i],ylab=expression(varphi[1]))
+plot(colMeans(ris_phi[5000:10000,,1])~da[,6],
+                    xlab=colnames(da)[6],ylab=expression(varphi[1]))
 ```
 
-Posterior mean of the factors ordering units by latitude
+We show the posterior mean of the factors, ordering units by latitude
+
 ```{r}
-# Define the matrix to be visualized 
 # Define the color palette with red and blue
 custom_colors <- c("red","white", "blue")
 
 # Create a custom color function that maps values to colors
 color_function <- colorRampPalette(custom_colors)
-colors <- color_function(0.3*length(GG1))
- 
-#head(colMeans((ris_phi[5000:10000,,])*ris_ps[5000:10000,,]))
-
-par(mfrow=c(1,2))
+colors <- color_function(0.3*p^2)
+  
 image(t(colMeans((ris_phi[5000:10000,,1:5])*
                     ris_ps[5000:10000,,1:5])),
 ylab="latitude", col =colors, axes=F , xlab = expression(Phi))
 axis(1,0.25*c(1:5)-0.25, 1:5)
 ```
 
-Posterior mean ordering by latitude and habitat
+We show the posterior mean of the factors ordering by latitude and habitat
 ```{r}
 oor=order(da$Habitat)
 cuts=table(da$Habitat[oor])/sum(table(da$Habitat[oor]))
@@ -335,13 +266,11 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 
-Upper and lower bounds of credible intervals for specific factors
+We also display  lower and upper  bounds of credible intervals (10% and 90%) for specific factors ordering, again, by latitude.
+
 ```{r}
-colQuant90=function (m) apply(m,c(2,3), function(x) quantile(x,0.9))
+#function to compute 10% quantiles
 colQuant10=function (m)apply(m,c(2,3),function(x) quantile(x,0.1))
-
-par(mfrow=c(1,2))
-
 image(t(colQuant10((ris_phi[5000:10000,,1:5])*
                    ris_ps[5000:10000,,1:5]))
       ,  main="q=0.1",
@@ -351,6 +280,8 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 
 
 ```{r}
+#function to compute 90% quantiles
+colQuant90=function (m) apply(m,c(2,3), function(x) quantile(x,0.9))
 image(t(colQuant90((ris_phi[5000:10000,,1:5])*
                      ris_ps[5000:10000,,1:5])),
       main="q=0.9",
@@ -358,14 +289,9 @@ image(t(colQuant90((ris_phi[5000:10000,,1:5])*
 axis(1,0.25*c(1:5)-0.25, 1:5)
 ```
 
+We produce the same plots, first for the 10% quantiles,  ordering the specific factors by habitat
 
 ```{r}
-colQuant90=function (m) apply(m,c(2,3), function(x) quantile(x,0.9))
-colQuant10=function (m)apply(m,c(2,3),function(x) quantile(x,0.1))
-
-
- 
-
 image(t(colQuant10((ris_phi[5000:10000,oor,1:5])*
                      ris_ps[5000:10000,oor,1:5]))
       ,  main="q=0.1",
@@ -375,6 +301,7 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 
+then, for the 90% quantiles,  ordering the specific factors by habitat.
 
 ```{r}
 image(t(colQuant90((ris_phi[5000:10000,oor,1:5])*
@@ -386,26 +313,23 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 
+## Uncertaitny quantification for the covariance matrix
 
 ```{r}
-
 # covariance matrix
 G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ]))
-G
-
 L=colMeans(colMeans(ris_tau_eta[5000:10000, ])*
              (ris_lambda[5000:10000,, ]))
-L
 
 
-#### cov
 LL <- tcrossprod(L, L)
+GG <- tcrossprod(G,G)
 
-ordine <- 50*as.numeric(as.factor(TrData_taxonomy$Migration=="R"))+
+ordercov <- 50*as.numeric(as.factor(TrData_taxonomy$Migration=="R"))+
   100*as.numeric(as.factor(TrData_taxonomy$Migration)=="S")+
   150*as.numeric(as.factor(TrData_taxonomy$Migration)=="L")+
   as.numeric((TrData_taxonomy$LogMass))
-ordine=order(ordine)
+ordercov=order(ordercov)
 ```
 
 
@@ -420,10 +344,10 @@ col2=ifelse(col==1, "purple", "blue")
 col2
 #short red
 col2=ifelse(col==3,"red", col2)
-heatmap((GG[ordine,ordine]),  Rowv = NA, Colv=NA,symm = T, col=cm.colors(80),
-        RowSideColors = col2[ordine],
-        labRow = TrData_taxonomy$Species[ordine],
-        labCol = TrData_taxonomy$label[ordine],
+heatmap((GG[ordercov,ordercov]),  Rowv = NA, Colv=NA,symm = T, col=cm.colors(80),
+        RowSideColors = col2[ordercov],
+        labRow = TrData_taxonomy$Species[ordercov],
+        labCol = TrData_taxonomy$label[ordercov],
         keep.dendro = FALSE,revC = F)
 legend("topleft", c("Long migrant", "Short migrant","Resident"), 
        pch=15,cex=1.1,border = F, bty="n",col=c("purple", "red", "blue"))
@@ -431,3 +355,4 @@ legend("topleft", c("Long migrant", "Short migrant","Resident"),
 
 
 ```
+
