@@ -313,35 +313,30 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 
-## Uncertaitny quantification for the covariance matrix
+
+## Specific covariance matrix 
 
 ```{r}
-# covariance matrix
-G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ]))
-L=colMeans(colMeans(ris_tau_eta[5000:10000, ])*
-             (ris_lambda[5000:10000,, ]))
-
-
-LL <- tcrossprod(L, L)
+G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ])) 
 GG <- tcrossprod(G,G)
+```
 
+We order the elements of such covariance matrix by the type of birds, in particular considering the migration type behavior
+
+```{r}
 ordercov <- 50*as.numeric(as.factor(TrData_taxonomy$Migration=="R"))+
   100*as.numeric(as.factor(TrData_taxonomy$Migration)=="S")+
   150*as.numeric(as.factor(TrData_taxonomy$Migration)=="L")+
   as.numeric((TrData_taxonomy$LogMass))
 ordercov=order(ordercov)
 ```
-
-
-
-
+    
+ 
 
 ```{r}
- 
 col=as.numeric(TrData_taxonomy$Migration)
-#long purple
+#long purple, mid blue
 col2=ifelse(col==1, "purple", "blue")
-col2
 #short red
 col2=ifelse(col==3,"red", col2)
 heatmap((GG[ordercov,ordercov]),  Rowv = NA, Colv=NA,symm = T, col=cm.colors(80),
@@ -353,6 +348,10 @@ legend("topleft", c("Long migrant", "Short migrant","Resident"),
        pch=15,cex=1.1,border = F, bty="n",col=c("purple", "red", "blue"))
 
 
-
 ```
+
+
+
+
+
 
