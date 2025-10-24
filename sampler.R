@@ -16,9 +16,8 @@
 # 0. INSTALL AND LOAD REQUIRED PACKAGES
 # ----------------------------------------------------------
 
-required_pkgs <- c(
-  "Rcpp", "RcppEigen", "RcppArmadillo", "mvtnorm",
-  "pgdraw", "unbiasedmcmc", "calculus", "matrixStats", "MCMCpack"
+required_pkgs <- c( "Rcpp", "RcppEigen", "RcppArmadillo", "mvtnorm", "matrixStats", 
+  "ggplot2", "cowplot", "coda", "tidyverse"
 )
 
 # Install any missing packages automatically
