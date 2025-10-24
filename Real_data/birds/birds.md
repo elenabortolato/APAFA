@@ -1,12 +1,16 @@
 Bird species occurence dataset
 ================
 
-
-``` r
-setwd("C:/Users/Asus/Desktop/FactorModels/birds/data")
-da = read.csv("data.csv", stringsAsFactors=TRUE)
-#source("sampler.R")
+ 
+```{}
+knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r, echo=FALSE}
+library(dplyr)
+#source("../../sampler.R")
+```
+ 
 
 ## Birds co-occurrence
 
@@ -640,6 +644,7 @@ ordine <- 50*as.numeric(as.factor(TrData_taxonomy$Migration=="R"))+
   as.numeric((TrData_taxonomy$LogMass))
 ordine=order(ordine)
 ```
+
 
 
 
