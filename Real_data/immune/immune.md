@@ -11,7 +11,7 @@ curatedOvarianData Bioconductor package, which provide patient
 information for further modeling and model diagnostics.
 
 ``` r
-y <- readRDS(file = "immune_data.RDS")
+y <- readRDS(file = "immune_data/immune_data.RDS")
 
 library(curatedOvarianData)
 ```
@@ -218,7 +218,7 @@ posterior summaries and visualizations.
 We begin by loading the precomputed results.
 
 ``` r
-if (run==F) load("immune_res.RData")
+if (run==F) load("immune_data/immune_res.RData")
 ```
 
 ### Reproducing Figure 9: contribution of ΓΓᵀ
