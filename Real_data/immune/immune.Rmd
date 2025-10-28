@@ -10,7 +10,7 @@ output: github_document
 We start by loading the gene expression count dataset, saved as an RDS file. In addition, we load curated ovarian cancer datasets from the curatedOvarianData Bioconductor package, which provide patient information for further modeling and model diagnostics.
 
 ```{r}
-y <- readRDS(file = "immune_data.RDS")
+y <- readRDS(file = "immune_data/immune_data.RDS")
 
 library(curatedOvarianData)
 data("GSE9891_eset")
@@ -168,7 +168,7 @@ If the MCMC was already run, we load the saved workspace and perform posterior s
 We begin by loading the precomputed results.
 
 ```{r}
-if (run==F) load("immune_res.RData")
+if (run==F) load("immune_data/immune_res.RData")
 ```
 
 ### Reproducing Figure 9: contribution of ΓΓᵀ
