@@ -12,35 +12,35 @@ library(ggplot2)
 library(ggpubr)
 
 
-RIS1 = readRDS("long/RIS_1.RDS")
-RIS2 = readRDS("long/RIS_2.RDS")
-RIS3 = readRDS("long/RIS_3.RDS")
-RIS4A = readRDS("long/RIS_4A.RDS")
-RIS4B = readRDS("long/RIS_4B.RDS")
+RES1 = readRDS("long/RIS_1.RDS")
+RES2 = readRDS("long/RIS_2.RDS")
+RES3 = readRDS("long/RIS_3.RDS")
+RES4A = readRDS("long/RIS_4A.RDS")
+RES4B = readRDS("long/RIS_4B.RDS")
 
-RIS1TETRIS = readRDS("long/RIS1_TETRIS.RDS")
-RIS2TETRIS = readRDS("long/RIS2_TETRIS.RDS")
-RIS4ATETRIS = readRDS("long/RIS4A_TETRIS.RDS")
+RES1TETRIS = readRDS("long/RIS1_TETRIS.RDS")
+RES2TETRIS = readRDS("long/RIS2_TETRIS.RDS")
+RES4ATETRIS = readRDS("long/RIS4A_TETRIS.RDS")
 
-OUT_ALL = rbind(RIS1,
-                RIS3,
-                RIS2,
-                RIS4A,
-                RIS4B,
-                RIS1TETRIS,
-                RIS2TETRIS,
-                RIS4ATETRIS)
+OUT_ALL = rbind(RES1,
+                RES3,
+                RES2,
+                RES4A,
+                RES4B,
+                RES1TETRIS,
+                RES2TETRIS,
+                RES4ATETRIS)
 
 #len is the number of all the replications in the simualtion study
 len = c(
-  dim(RIS1)[1],
-  dim(RIS3)[1],
-  dim(RIS2)[1],
-  dim(RIS4A)[1],
-  dim(RIS4B)[1],
-  dim(RIS1TETRIS)[1],
-  dim(RIS2TETRIS)[1],
-  dim(RIS4ATETRIS)[1]
+  dim(RES1)[1],
+  dim(RES3)[1],
+  dim(RES2)[1],
+  dim(RES4A)[1],
+  dim(RES4B)[1],
+  dim(RES1TETRIS)[1],
+  dim(RES2TETRIS)[1],
+  dim(RES4ATETRIS)[1]
 )
 
 #labels refer to the SCENARIOS (first APAFA, then TETRIS)
@@ -145,39 +145,39 @@ plot1
 #######################################################
 # do the same for the large scenario (n<p)
 setwd("simulation")
-RIS1LARGE = readRDS("large/RIS1LARGE.RDS")
-RIS2LARGE = readRDS("large/RIS_2_large.RDS")
-RIS3LARGE = readRDS("large/RIS_3_large.RDS")
-RIS4ALARGE = readRDS("large/RIS_4A_large.RDS")
-RIS4BLARGE = readRDS("large/RIS_4B_large.RDS")
+RES1LARGE = readRDS("large/RIS1LARGE.RDS")
+RES2LARGE = readRDS("large/RIS_2_large.RDS")
+RES3LARGE = readRDS("large/RIS_3_large.RDS")
+RES4ALARGE = readRDS("large/RIS_4A_large.RDS")
+RES4BLARGE = readRDS("large/RIS_4B_large.RDS")
 
 
-RIS1TETRIS = readRDS("large/RIS1TETRIS_large.RDS")
-RIS2TETRIS = readRDS("large/RIS2TETRIS_large.RDS")
-RIS4ATETRIS = readRDS("large/RIS4ATETRIS_large.RDS")
+RES1TETRIS = readRDS("large/RIS1TETRIS_large.RDS")
+RES2TETRIS = readRDS("large/RIS2TETRIS_large.RDS")
+RES4ATETRIS = readRDS("large/RIS4ATETRIS_large.RDS")
 
 OUT_ALL = rbind(
-  RIS1LARGE,
-  RIS3LARGE,
-  RIS2LARGE,
-  RIS4ALARGE,
-  RIS4BLARGE,
-  RIS1TETRIS,
-  RIS2TETRIS,
-  RIS4ATETRIS
+  RES1LARGE,
+  RES3LARGE,
+  RES2LARGE,
+  RES4ALARGE,
+  RES4BLARGE,
+  RES1TETRIS,
+  RES2TETRIS,
+  RES4ATETRIS
 )
 
 
 # as before, define the number of replication for each scenario
 len = c(
-  dim(RIS1LARGE)[1],
-  dim(RIS3LARGE)[1],
-  dim(RIS2LARGE)[1],
-  dim(RIS4ALARGE)[1],
-  dim(RIS4BLARGE)[1],
-  dim(RIS1TETRIS)[1],
-  dim(RIS2TETRIS)[1],
-  dim(RIS4ATETRIS)[1]
+  dim(RES1LARGE)[1],
+  dim(RES3LARGE)[1],
+  dim(RES2LARGE)[1],
+  dim(RES4ALARGE)[1],
+  dim(RES4BLARGE)[1],
+  dim(RES1TETRIS)[1],
+  dim(RES2TETRIS)[1],
+  dim(RES4ATETRIS)[1]
 )
 labels = c("A", "A*", "B", "C", "D", # APAFA
            "A", "B", "C") #TETRIS
