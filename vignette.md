@@ -1,4 +1,5 @@
-# Example of usage
+# APAFA: Example of usage
+Bortolato, E. and Canale, A. October 2025
 
 This file explains how to fit a MSF model with APAFA on simulated data. The example runs in approximately 5 minutes.
 
