@@ -1,4 +1,5 @@
 Simulation results
+Bortolato, E. and Canale, A. October 2025
 ================
 
 This code reproduces Tables 1 and 2 and Figure 4:
