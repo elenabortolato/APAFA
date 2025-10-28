@@ -1,132 +1,126 @@
-immune
+Immune dataset
 ================
+Bortolato, E. and Canale, A.
+October 2025
 
+## Data loading and preprocessing
+
+We start by loading the gene expression count dataset, saved as an RDS
+file. In addition, we load curated ovarian cancer datasets from the
+curatedOvarianData Bioconductor package, which provide patient
+information for further modeling and model diagnostics.
 
 ``` r
-setwd("data_immune")
-#saveRDS(file="immune_data.RDS",y)  
-y=readRDS(file="immune_data.RDS")
-p=ncol(y)
-n=nrow(y)
-ns=c(285, 140, 578, 195)
-S=4
-######################################################
-#initialization
-Sigma=(diag(p))*0.5
-PCA_est=princomp(y,scores = T)
-fact_est=PCA_est 
-#shared latent factors and loadings
-d=30 # shared latent factors
-Lambda=matrix(fact_est$loadings[,1:d], ncol = d, nrow = p)
-Lambda
+y <- readRDS(file = "immune_data.RDS")
+
+library(curatedOvarianData)
 ```
 
-    ##             [,1]        [,2]          [,3]          [,4]          [,5]
-    ##  [1,] 0.13736645  0.26484268  0.1103755575  0.0181177789  3.091656e-02
-    ##  [2,] 0.10949826  0.01851038  0.0180260276  0.0053504380 -4.283383e-04
-    ##  [3,] 0.12439266 -0.06506372 -0.0265192539  0.0126654838  2.724029e-02
-    ##  [4,] 0.09276420 -0.04594250 -0.0126426197  0.0161659058  5.329092e-05
-    ##  [5,] 0.09509617  0.25626854  0.1221763495  0.0309844355 -1.047478e-02
-    ##  [6,] 0.05925849 -0.03262635 -0.0042095344 -0.0980090363 -6.073825e-03
-    ##  [7,] 0.07420421 -0.01822795 -0.0016799942  0.0075283283 -1.955030e-03
-    ##  [8,] 0.07258178 -0.05827399 -0.0244468448 -0.0082858691 -2.094591e-03
-    ##  [9,] 0.10532680  0.06090882  0.0292931757  0.0029103149  1.426134e-02
-    ## [10,] 0.08910999 -0.03445040 -0.0158774641  0.0061175215  3.601919e-02
-    ## [11,] 0.13221922 -0.05029729  0.0009480286  0.0101998221  4.362044e-02
-    ## [12,] 0.14315355 -0.03838806 -0.0081869277  0.0256430857  5.724877e-02
-    ## [13,] 0.08768023 -0.09666143 -0.0284029380  0.0229589973  3.006626e-02
-    ## [14,] 0.11260814 -0.05343352 -0.0175788870  0.0946656263  7.424210e-02
-    ## [15,] 0.14430620  0.05105364  0.0162603852  0.0192647088  4.217621e-02
-    ...
-    ##               [,6]          [,7]          [,8]          [,9]        [,10]
-    ##  [1,]  0.019286029  0.1674818412  0.0127558746  0.0561182586  0.078650544
-    ##  [2,]  0.027197815 -0.0114972820 -0.0094269691 -0.0460082508 -0.029114909
-    ##  [3,]  0.025697961 -0.0047871265 -0.0119566409  0.0438123752  0.010690955
-    ##  [4,]  0.036822344  0.0257432844 -0.0199745955  0.0231045269 -0.040692833
-    ##  [5,] -0.116124927 -0.0209968519 -0.0307388641  0.0561475179  0.049554446
-    ##  [6,] -0.237156815  0.5505701065  0.0189136354 -0.0639500219  0.089092286
-    ##  [7,] -0.003806308 -0.0262897837 -0.0438068375  0.0018876915 -0.044446337
-    ##  [8,]  0.040699055  0.0227844012 -0.0082671120 -0.0057327549 -0.051530607
-    ##  [9,]  0.107009953 -0.0455899992 -0.0752699312 -0.1310544556 -0.010575869
-    ## [10,]  0.014185392  0.0232985028  0.0198630541 -0.0029215619  0.019662237
-    ## [11,] -0.053383388 -0.0369264022  0.0228054829  0.0415745061  0.045445472
-    ## [12,]  0.054590257 -0.0236194057 -0.0129319237  0.0164798456  0.106909767
-    ## [13,]  0.031971343 -0.0308210700 -0.0149251407 -0.0173947138  0.047457669
-    ## [14,]  0.231746464 -0.0753218834 -0.2346633434 -0.0360206863  0.295603056
-    ## [15,]  0.068120402 -0.0160733280  0.0539382722 -0.0998374817  0.040469722
- 
-  
+    ## Loading required package: Biobase
+
+    ## Loading required package: BiocGenerics
+
+    ## 
+    ## Attaching package: 'BiocGenerics'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     IQR, mad, sd, var, xtabs
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    ##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    ##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    ##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    ##     Position, rank, rbind, Reduce, rownames, sapply, saveRDS, setdiff,
+    ##     table, tapply, union, unique, unsplit, which.max, which.min
+
+    ## Welcome to Bioconductor
+    ## 
+    ##     Vignettes contain introductory material; view with
+    ##     'browseVignettes()'. To cite Bioconductor, see
+    ##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+
 ``` r
-eta=eta_=matrix(NA, ncol = d, nrow = n)
-    
-for (h in 1:d) {eta[,h]=eta_[,h]=fact_est$scores[h]}
-#specific latent factors and loadings
-ks=rep(NA, S)
-ks=c(3,3,3,3)#n. of specific factors/study 
-k=sum(ks)
-group=rep(NA,n)
+data("GSE9891_eset")
+ns = dim(GSE9891_eset)[2]
+data("GSE20565_eset")
+ns = c(ns, dim(GSE20565_eset)[2])
+data(TCGA_eset)
+ns = c(ns, dim(TCGA_eset)[2])
+data("GSE26712_eset")
+ns = c(ns, dim(GSE26712_eset)[2])
+data("GSE20565_eset")
+
+p <- ncol(y)
+n <- nrow(y)
+sum(ns) == n
+```
+
+    ## [1] TRUE
+
+``` r
+S <- 4
+```
+
+------------------------------------------------------------------------
+
+## Parameter initialization
+
+We initialize parameters for the APAFA model. Shared latent factors are
+initially extracted using principal component analysis, and specific
+factors are defined per study.  
+Group indicators and design matrices are created to encode study
+membership.
+
+``` r
+Sigma <- (diag(p)) * 0.5
+fact_est <- princomp(y, scores = TRUE)
+d <- 30  # number of shared latent factors
+Lambda <- matrix(fact_est$loadings[, 1:d], ncol = d, nrow = p)
+eta <- eta_ <- matrix(NA, ncol = d, nrow = n)
+
+for (h in 1:d) {
+  eta[, h] <- eta_[, h] <- fact_est$scores[h]
+}
+
+ks <- c(3, 3, 3, 3)
+k <- sum(ks)
+group <- rep(NA, n)
+
 for (s in 1:S) {
-    nscumpre=ifelse(s>1,sum(ns[1:(s-1)])+1,1)
-    nscum=sum(ns[1:s])
-    group[nscumpre:nscum]=s
-  }
-group
+  nscumpre <- ifelse(s > 1, sum(ns[1:(s-1)]) + 1, 1)
+  nscum <- sum(ns[1:s])
+  group[nscumpre:nscum] <- s
+}
+
+X <- model.matrix(rep(1, n) ~ -1 + as.factor(group))
 ```
 
-    ##    [1]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
-    ##   [25]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
-    ##   [49]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
-    ##   [73]  1  1  1  1  1  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  2  2  2
-    ##   [97]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
-    ##  [121]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
-    ##  [145]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
-    ##  [169]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
-    ##  [193]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
- ...
+We next define study-specific loadings and initialize hyperparameters
+for the prior distributions.  
+Stick-breaking weights are drawn to control sparsity in both shared and
+specific factors.
 
 ``` r
-#dummy variables for groups
-X=matrix(NA, ncol=S, nrow=n)
-X=model.matrix(rep(1,n)~-1+as.factor(group))
-tail(X)
-```
+specific_loadings <- rnorm(p * k, sd = 1)
+Gamma <- matrix(specific_loadings, ncol = k, nrow = p)
+phi_ <- phi <- matrix(NA, ncol = k, nrow = n)
+for (h in 1:k) { phi[, h] <- phi_[, h] <- rnorm(n) }
 
-    ##     as.factor(group)1 as.factor(group)2 as.factor(group)3 as.factor(group)4
-    ## 993                 0                 0                 0                 1
-    ## 994                 0                 0                 0                 1
-    ## 995                 0                 0                 0                 1
-    ## 996                 0                 0                 0                 1
-    ## 997                 0                 0                 0                 1
-    ## 998                 0                 0                 0                 1
+alpha_eta <- 5
+v_eta <- c(rbeta(d - 1, 1, alpha_eta), 1)
+w_eta <- v_eta * c(1, cumprod(1 - v_eta[-d]))
+z_eta <- rep(d, d)
 
-``` r
-specific_loadings=rnorm(p*k, sd=1)
-Gamma=matrix(specific_loadings, ncol = k, nrow = p)
-phi_=phi=matrix(NA, ncol = k, nrow = n)
-for (h in 1:k) {phi[,h]=phi_[,h]=rnorm(n)}
+alpha_phi <- 6
+v_phi <- c(rbeta(k - 1, 1, alpha_phi), 1)
+w_phi <- v_phi * c(1, cumprod(1 - v_phi[-k]))
+z_phi <- rep(k, k)
 
-#hyperparameters 
-alpha_eta=5
-v_eta = c( rbeta(d-1, shape1 = 1, shape2 = alpha_eta), 1)
-w_eta = v_eta*c(1,cumprod(1-v_eta[-d]))                     # weights
-z_eta = rep(d,d)
-alpha_phi=6
-v_phi = c( rbeta(k-1, shape1 = 1, shape2 = alpha_phi), 1)
-w_phi = v_phi*c(1,cumprod(1-v_phi[-k]))                     # weights
-z_phi = rep(k,k)
- 
-betas=matrix(0, ncol=k, nrow=S, byrow = F)
-betas
-```
-
-    ##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
-    ## [1,]    0    0    0    0    0    0    0    0    0     0     0     0
-    ## [2,]    0    0    0    0    0    0    0    0    0     0     0     0
-    ## [3,]    0    0    0    0    0    0    0    0    0     0     0     0
-    ## [4,]    0    0    0    0    0    0    0    0    0     0     0     0
-
-``` r
-plogis(betas )
+betas <- matrix(0, ncol = k, nrow = S)
+plogis(betas)
 ```
 
     ##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12]
@@ -135,236 +129,224 @@ plogis(betas )
     ## [3,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5
     ## [4,]  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5   0.5   0.5   0.5
 
-``` r
-a_lambda=2
-b_lambda=2
-a_gamma=2
-b_gamma=2
-a_load=c(rep(a_lambda,d),rep(a_gamma, k))
-b_load=c(rep(b_lambda,d),rep(b_gamma, k))
+Finally, we define priors, hyperparameters, and initialize arrays for
+MCMC storage.  
+The code below sets up all model components required by the Gibbs
+sampler.
 
-# save all the quantities useful for the MCMC kernel
-  state=list(y=y,# response
-             Lambda=Lambda,  Lambda_=Lambda, # shared loadings
-             eta= (eta),  #sparse and non sparse shared factors
-             Gamma=Gamma, #specific loadings
-             phi= (phi), phi_= (phi_), #sparse and non sparse specific factors
-             Sigma=Sigma,# list of specific covariance matrices
-             n=n, ns=ns, X=X, S=S, d=d, k=k,  p=p,
-             #prior
-             a_sigma=2, b_sigma=2, tau_eta=c(rep(1,d), rep(0, d-d)), 
-             tau_phi=c(rep(1,k), rep(0, k-k)), 
-             z_eta =z_eta, z_phi= z_phi, 
-             w_eta=w_eta, w_phi=w_phi, 
-             v_eta=v_eta, v_phi=v_phi, 
-             alpha_eta=10, alpha_phi=6, 
-             scale_beta=0.1,# equal tO expected n.of active factors
-              a_load=a_load, b_load=b_load,
-             betas=betas,   
-             ps=matrix(rbinom(n*k,1,0.5), ncol=k))
-    
-    
-  
-#### arrays for storing results
-maxiter=10000
-ris_phi=array(dim=c(maxiter,dim(state$phi)) )
-ris_eta=array(dim=c(maxiter,dim(state$eta)) )
-ris_ps=array(dim=c(maxiter,dim(state$ps)) )
-ris_beta=array(dim=c(maxiter,dim(state$betas)) )
-ris_eta=array(dim=c(maxiter,dim(state$eta)) )
-ris_lambda=array(dim=c(maxiter,dim(state$Lambda)) )
-ris_gamma=array(dim=c(maxiter,dim(state$Gamma)) )
-ris_tau_eta=array(dim=c(maxiter,length(state$tau_eta)) )
-ris_tau_phi=array(dim=c(maxiter,length(state$tau_phi)) )
-ris_sigma1=matrix(0,ncol=p,maxiter)
- 
-#run MCMC
-iter=1
+``` r
+a_lambda <- 2
+b_lambda <- 2
+a_gamma <- 2
+b_gamma <- 2
+a_load <- c(rep(a_lambda, d), rep(a_gamma, k))
+b_load <- c(rep(b_lambda, d), rep(b_gamma, k))
+
+state <- list(
+  y = y,
+  Lambda = Lambda, Lambda_ = Lambda,
+  eta = eta,
+  Gamma = Gamma,
+  phi = phi, phi_ = phi_,
+  Sigma = Sigma,
+  n = n, ns = ns, X = X, S = S, d = d, k = k, p = p,
+  a_sigma = 2, b_sigma = 2,
+  tau_eta = c(rep(1, d), rep(0, d - d)),
+  tau_phi = c(rep(1, k), rep(0, k - k)),
+  z_eta = z_eta, z_phi = z_phi,
+  w_eta = w_eta, w_phi = w_phi,
+  v_eta = v_eta, v_phi = v_phi,
+  alpha_eta = 10, alpha_phi = 6,
+  scale_beta = 0.1,
+  a_load = a_load, b_load = b_load,
+  betas = betas,
+  ps = matrix(rbinom(n * k, 1, 0.5), ncol = k)
+)
+
+maxiter <- 10000
+
+ris_phi <- array(dim = c(maxiter, dim(state$phi)))
+ris_eta <- array(dim = c(maxiter, dim(state$eta)))
+ris_ps <- array(dim = c(maxiter, dim(state$ps)))
+ris_beta <- array(dim = c(maxiter, dim(state$betas)))
+ris_lambda <- array(dim = c(maxiter, dim(state$Lambda)))
+ris_gamma <- array(dim = c(maxiter, dim(state$Gamma)))
+ris_tau_eta <- array(dim = c(maxiter, length(state$tau_eta)))
+ris_tau_phi <- array(dim = c(maxiter, length(state$tau_phi)))
+ris_sigma1 <- matrix(0, ncol = p, maxiter)
+```
+
+The Gibbs sampler can now be run to estimate the posterior
+distributions.  
+Set `run = TRUE` to execute the sampler; otherwise, skip to
+post-processing using precomputed results.
+
+``` r
+iter <- 1
 set.seed(1234)
-run=F
-if(run==T){
-for (iter in iter:maxiter){
-  cat(iter)
-  state= Gibbs_Kernel(state)
-  #shrinkage CUSP
-  ris_tau_eta[iter,]=state$tau_eta
-  ris_tau_phi[iter,]=state$tau_phi
-  #factors
-  ris_phi[iter,,]=state$phi
-  ris_eta[iter,,]=state$eta
-  #beta 
-  ris_beta[iter,,]=state$betas
-  #psi
-  ris_ps[iter,,]=state$ps
-  #loadings
-  ris_lambda[iter,,]=state$Lambda
-  ris_gamma[iter,,]=state$Gamma
-  #sigma
-  ris_sigma1[iter,]=diag(state$Sigma)
-  #print iteration and number of active factors
-  print(state$tau_eta)
-  image(state$ps)
-  print(state$tau_phi)
-  if(iter%%200==0){
-    print(iter)
-    
+run <- FALSE
+
+if (run == TRUE) {
+  for (iter in iter:maxiter) {
+    cat(iter)
+    state <- Gibbs_Kernel(state)
+    ris_tau_eta[iter, ] <- state$tau_eta
+    ris_tau_phi[iter, ] <- state$tau_phi
+    ris_phi[iter, , ] <- state$phi
+    ris_eta[iter, , ] <- state$eta
+    ris_beta[iter, , ] <- state$betas
+    ris_ps[iter, , ] <- state$ps
+    ris_lambda[iter, , ] <- state$Lambda
+    ris_gamma[iter, , ] <- state$Gamma
+    ris_sigma1[iter, ] <- diag(state$Sigma)
+
+    if (iter %% 200 == 0) {
+      print(iter)
     }
+  }
 }
-}
-#save.image("immune_res.RData")
+
+if (run == TRUE) save.image("immune_res.RData")
 ```
 
-# Load results
+------------------------------------------------------------------------
+
+## Post-processing analysis
+
+If the MCMC was already run, we load the saved workspace and perform
+posterior summaries and visualizations.  
+We begin by loading the precomputed results.
 
 ``` r
-#Load results
-setwd("/Users/elenabortolato/Downloads")
-
-load("immune_res.RData")
- 
-#active factors
-colMeans(ris_tau_eta)
+if (run==F) load("immune_res.RData")
 ```
 
-    ##  [1] 1 1 1 1 1 0 0 0 0 0
+### Reproducing Figure 9: contribution of ΓΓᵀ
+
+We estimate the contribution of the study-specific components by
+averaging posterior samples of the corresponding parameters.  
+The following code computes the contribution matrices and visualizes
+them using color-coded heatmaps.
 
 ``` r
-# Figure 9: contribution of Gamma Gamma
- # Gamma matrix
-if(1==1){
-  G=colMeans(colMeans(ris_tau_phi[5000:10000, ])*(ris_gamma[5000:10000,, ]))
-   
-  #reorder specific factors according to activation %
-  order(colSums(abs(phi_hat)))
-  G=G[,order(colSums(abs(phi_hat)))]
-  #G=G[HH$colInd,]
-  #library(MSFA)
-  #heatmap((LL),symm = T,labRow  =im_response)#colnames(MSFA::data_breastCancer05[[1]]) )
-  GG1=tcrossprod(G[,1],G[,1])
-  GG2=tcrossprod(G[,2],G[,2])
-  GG3=tcrossprod(G[,3],G[,3])
-  GG4=tcrossprod(G[,4],G[,4])
-  GG5=tcrossprod(G[,5],G[,5])
-  GG6=tcrossprod(G[,6],G[,6])
-  GG7=tcrossprod(G[,7],G[,7])
-  GG8=tcrossprod(G[,8],G[,8])
-  GG9=tcrossprod(G[,9],G[,9])
-  par(mfrow=c(3,3))
-  GG1[1,1]=max(abs(GG1))
-  GG1[p,p]=-max(abs(GG1))
-  GG2[1,1]=max(abs(GG2))
-  GG2[p,p]=-max(abs(GG2))
-  GG3[1,1]=max(abs(GG3))
-  GG3[p,p]=-max(abs(GG3))
-  GG4[1,1]=max(abs(GG4))
-  GG4[p,p]=-max(abs(GG4))
-  GG5[1,1]=max(abs(GG4))
-  GG5[p,p]=-max(abs(GG5))
-  GG6[1,1]=max(abs(GG6))
-  GG6[p,p]=-max(abs(GG6))
-  GG7[1,1]=max(abs(GG7))
-  GG7[p,p]=-max(abs(GG7))
-  GG8[1,1]=max(abs(GG8))
-  GG8[p,p]=-max(abs(GG8))
-  GG9[1,1]=max(abs(GG9))
-  GG9[p,p]=-max(abs(GG9))
- 
- 
-  # Define the matrix to be visualized 
-  # Define the color palette with red and blue
-  custom_colors <- c("red","white", "blue")
-  
-  # Create a custom color function that maps values to colors
-  color_function <- colorRampPalette(custom_colors)
-  colors <- color_function(0.3*length(GG1))
-  # Plot the image with the custom color palette
-  
-  
-  par(mfrow=c(1,1))
-  image(GG3, axes=F,xlab=expression(Gamma[1]*Gamma[1]^T),col = colors[sort.list(t(GG3))])
-  image(GG4, axes=F,xlab=expression(Gamma[2]*Gamma[2]^T),col = colors[sort.list(GG4)])
-  image(GG5, axes=F,xlab=expression(Gamma[3]*Gamma[3]^T),col = colors[sort.list(GG1)])
-  image(GG1, axes=F,xlab=expression(Gamma[4]*Gamma[4]^T),col = colors[sort.list(GG2)])
-  image(GG2, axes=F,xlab=expression(Gamma[5]*Gamma[5]^T),col = colors[sort.list(GG5)])
-  image(GG6, axes=F,xlab=expression(Gamma[6]*Gamma[6]^T),col = colors[sort.list(GG6)])
-  image(GG7, axes=F,xlab=expression(Gamma[7]*Gamma[7]^T),col = colors[sort.list(GG7)])
-  image(GG8, axes=F,xlab=expression(Gamma[8]*Gamma[8]^T),col = colors[sort.list(GG8)])
-  image(GG9, axes=F,xlab=expression(Gamma[9]*Gamma[9]^T),col = colors[sort.list(GG9)])
-} 
+G = colMeans(colMeans(ris_tau_phi[5000:10000, ]) * (ris_gamma[5000:10000, , ]))
+ps_hat = apply(ris_ps, c(2, 3), mean)
+phi_hat = apply(ris_phi[5000:10000, , ], c(2, 3), mean)
+
+order(colSums(abs(phi_hat)))
 ```
 
-# Figurure 7
+    ##  [1]  9 10 11 12  4  8  1  2  6  5  3  7
 
-```{r}
-# Figure 7
-ps_hat=apply(ris_ps,c(2,3),function(x) mean((x)))
-phi_hat=apply(ris_phi[8000:10000,,],c(2,3),function(x) mean((x)))
+``` r
+G = G[, order(colSums(abs(phi_hat)))]
 
-par(mfrow=c(1,1))
-par(mar=c(4,4,4,4))
-image(1-(phi_hat[,1:9]), axes=F, col=grey.colors(3), xlab="units",ylab=expression(Phi))
-abline(v=cumsum(ns/n))
-sapply(1:9,function (k) expression(phi[k]))
-#axis(philab, at=x.at)
-philab=c("phi[1]","phi[2]","phi[3]","phi[4]","phi[5]","phi[6]","phi[7]","phi[8]","phi[9]")
-y=1:9
-axis(2, at=y/9*1.091-0.1,labels = 1:9)
-abline(v=0)
-abline(h=1.06)
-abline(h=-0.06)
+GG1 = tcrossprod(G[, 1], G[, 1])
+GG2 = tcrossprod(G[, 2], G[, 2])
+GG3 = tcrossprod(G[, 3], G[, 3])
+GG4 = tcrossprod(G[, 4], G[, 4])
+GG5 = tcrossprod(G[, 5], G[, 5])
+GG6 = tcrossprod(G[, 6], G[, 6])
+GG7 = tcrossprod(G[, 7], G[, 7])
+GG8 = tcrossprod(G[, 8], G[, 8])
+GG9 = tcrossprod(G[, 9], G[, 9])
 
+custom_colors <- c("red", "white", "blue")
+color_function <- colorRampPalette(custom_colors)
+colors <- color_function(0.3 * length(GG1))
 
-
-```{r}
-#if (!require("BiocManager", quietly = TRUE))
- #   install.packages("BiocManager")
-
-#BiocManager::install("curatedOvarianData")
-library(curatedOvarianData)
-#data(package = "curatedOvarianData")
-
-data("GSE9891_eset")
-dim(GSE9891_eset)
-
-data("GSE20565_eset")
-dim(GSE20565_eset)
-
-data(TCGA_eset)
-dim(TCGA_eset)
-
-data("GSE26712_eset")
-dim(GSE26712_eset)
-
-hist=c(GSE9891_eset$histological_type,GSE20565_eset$histological_type,
-       TCGA_eset$histological_type, GSE26712_eset$histological_type)
-table(hist)
-boxplot(phi_hat[,1])
-points(c(1,1,1,1,1,1),phi_hat[which(hist=="clearcell"),1], col=2, pch="X")
-legend("topleft","clearcell", pch="X", col=2)
-
- 
-boxplot(phi_hat[,3])
-table(site)
-points(rep(1,7),phi_hat[which(hist=="mucinous"),3], col=2, pch="X")
-legend("topleft","mucinous", pch="X", col=2)
-
-
-boxplot(phi_hat[,4])
-table(site)
-points(rep(1,7),phi_hat[which(hist=="other"),4], col=2, pch="X")
-legend("topleft","other", pch="X", col=2)
-
-
-boxplot(phi_hat[,3])
-points(c(1,1,1,1,1,1,1,1),phi_hat[which(site=="ft"),3], col=2, pch="X")
-legend("topleft","other", pch="X", col=2)
-
-boxplot(phi_hat[,8])
-table(site)
-points(rep(1,26),phi_hat[which(hist=="endo"),8], col=2, pch="X")
-legend("topleft","endo", pch="X", col=2)
- 
-
-
-
+par(mfrow = c(2, 4))
+image(GG3, axes = FALSE, xlab = expression(Gamma[1] * Gamma[1]^T), col = colors[sort.list(t(GG3))])
+image(GG4, axes = FALSE, xlab = expression(Gamma[2] * Gamma[2]^T), col = colors[sort.list(GG4)])
+image(GG5, axes = FALSE, xlab = expression(Gamma[3] * Gamma[3]^T), col = colors[sort.list(GG5)])
+image(GG1, axes = FALSE, xlab = expression(Gamma[4] * Gamma[4]^T), col = colors[sort.list(GG1)])
+image(GG2, axes = FALSE, xlab = expression(Gamma[5] * Gamma[5]^T), col = colors[sort.list(GG2)])
+image(GG6, axes = FALSE, xlab = expression(Gamma[6] * Gamma[6]^T), col = colors[sort.list(GG6)])
+image(GG7, axes = FALSE, xlab = expression(Gamma[7] * Gamma[7]^T), col = colors[sort.list(GG7)])
+image(GG8, axes = FALSE, xlab = expression(Gamma[8] * Gamma[8]^T), col = colors[sort.list(GG8)])
 ```
+
+![](immune_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+------------------------------------------------------------------------
+
+## Figure 7: estimated activation of specific factors
+
+We visualize the estimated activation probabilities (`phi_hat`) across
+samples and studies.  
+Grey-scale images highlight variation across units-factors, with
+vertical lines distinguishing betweeen studies.
+
+``` r
+ps_hat = apply(ris_ps, c(2, 3), mean)
+phi_hat = apply(ris_phi[8000:10000, , ], c(2, 3), mean)
+
+par(mfrow = c(1, 1))
+par(mar = c(4, 4, 4, 4))
+image(1 - (phi_hat[, 1:9]), axes = FALSE, col = grey.colors(3),
+      xlab = "units", ylab = expression(Phi))
+abline(v = cumsum(ns / n))
+y = 1:9
+axis(2, at = y / 9 * 1.091 - 0.1, labels = 1:9)
+abline(v = 0)
+abline(h = 1.06)
+abline(h = -0.06)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+------------------------------------------------------------------------
+
+## Exploratory analysis by histological subtype
+
+We explore the relationship between estimated factors histological
+subtypes and site of the tumor across the studies.  
+The following code enables to visualize distributions of selected
+factors,  
+and highlights groups of units that present specific characteristics.
+
+``` r
+#histological type
+hist = c(GSE9891_eset$histological_type, GSE20565_eset$histological_type,
+         TCGA_eset$histological_type, GSE26712_eset$histological_type)
+boxplot(phi_hat[, 1])
+points(c(1, 1, 1, 1, 1, 1), phi_hat[which(hist == "clearcell"), 1], col = 2, pch = "X")
+legend("topleft", "clearcell", pch = "X", col = 2)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+boxplot(phi_hat[, 3])
+points(rep(1, 7), phi_hat[which(hist == "mucinous"), 3], col = 2, pch = "X")
+legend("topleft", "mucinous", pch = "X", col = 2)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
+
+``` r
+boxplot(phi_hat[, 4])
+points(rep(1, 7), phi_hat[which(hist == "other"), 4], col = 2, pch = "X")
+legend("topleft", "other", pch = "X", col = 2)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-9-3.png)<!-- -->
+
+``` r
+#site of the tumor
+site = c(GSE9891_eset$primarysite, GSE20565_eset$primarysite,
+         TCGA_eset$primarysite, GSE26712_eset$primarysite)
+boxplot(phi_hat[, 3])
+points(c(1, 1, 1, 1, 1, 1, 1, 1), phi_hat[which(site == "ft"), 3], col = 2, pch = "X")
+legend("topleft", "other", pch = "X", col = 2)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-9-4.png)<!-- -->
+
+``` r
+boxplot(phi_hat[, 8])
+points(rep(1, 26), phi_hat[which(hist == "endo"), 8], col = 2, pch = "X")
+legend("topleft", "endo", pch = "X", col = 2)
+```
+
+![](immune_files/figure-gfm/unnamed-chunk-9-5.png)<!-- -->
