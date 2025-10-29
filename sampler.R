@@ -137,11 +137,11 @@ Gibbs_Kernel=function(state){
   # -------------------------
   # Combined factor dimension = d (shared) + k (specific)
   I = diag(state$d + state$k)
-  # invS is diagonal of Sigma^{-1}; used to weight rows by residual precision
+  # invS is diagonal of Sigma^{-1}; residual precision
   invS = diag(1/diag(state$Sigma))
 
-  # mean_update: posterior mean for factors for each unit i
-  # var_update: posterior covariance for factors for each unit i
+  # mean_update: mean of the full  conditional distribution  for factors for each unit i
+  # var_update: covariance of the full conditional distribution  for factors for each unit i
   # Uses formula: Var = (I + M' invS M)^{-1}, Mean = Var * M' invS y_i
   # where M = [Lambda'; (tau_phi * ps) * Gamma']
   mean_update = sapply(1:state$n,
@@ -228,7 +228,7 @@ Gibbs_Kernel=function(state){
 
   # Initialize ps_ (proposed local activation) as 1s
   ps_ = matrix(1, nrow = state$n, ncol = state$k)
-  # For entries where ps==0, propose to keep zero with some probability (implementation detail)
+  # For entries where ps==0, propose to keep zero with some probability (details in the Supplementay materials)
   logit_phi0 = logit_phi[which(state$ps == 0)]
   p_constant = 1
   which_zero = which(runif(length(logit_phi0)) <
@@ -261,7 +261,7 @@ Gibbs_Kernel=function(state){
   }
 
   # -------------------------------------------------------------
-  # 4. Update precision (Prec) for loadings (lambda & gamma)
+  # 4. Update precision matrix (Prec) for loadings (lambda & gamma)
   # Using gamma prior on precisions: draw each diagonal element
   # -------------------------------------------------------------
   a_load = c(rep(state$a_lambda, state$d), rep(state$a_gamma, state$k))
