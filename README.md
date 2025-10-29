@@ -62,7 +62,7 @@ APAFA/
   ├── convergence_uncertainty.R # reproduces Figure SM3 and SM14 in the supplementary Materials
   ├── covariance_uncertainty.R # reproduces Figure SM16, SM17, SM18 and SM19 in the supplementary Materials
   ├── sensitivity.R # reproduces Figure SM4 and SM5 in the supplementary Materials
-  └── identifiability_test.R  # reproduces Figure SM6, SM7 and SM8 in the supplementary Materials
+  └── Robustness to nearly-non-identifiable configurations.R  # reproduces Figure SM6, SM7 and SM8 in the supplementary Materials
   
 ```
 
