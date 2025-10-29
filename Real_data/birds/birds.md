@@ -1,4 +1,4 @@
-"Bird species occurence dataset"
+Bird species occurence dataset
 ---
 
 Bortolato, E. and Canale, A.
@@ -335,5 +335,6 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 ![](birdsmd_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
 
 
