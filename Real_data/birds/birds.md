@@ -1,9 +1,9 @@
+"Bird species occurence dataset"
 ---
-title: "Bird species occurence dataset"
-author: "Bortolato, E. and Canale, A."
-date: 'October 2025'
-output: github_document
----
+
+Bortolato, E. and Canale, A.
+October 2025
+
 
 
 ```{r, echo=FALSE}
@@ -335,4 +335,5 @@ axis(1,0.25*c(1:5)-0.25, 1:5)
 text(.5,cumsum(cuts)-0.012*c(4,8,2,4,1),c("Broadleaved", "Conifer", "Open", "Urban","Wetlands"))
 ```
 ![](birdsmd_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
 
