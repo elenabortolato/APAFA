@@ -30,11 +30,7 @@ APAFA/
 │ │ ├── birds.md # output of the full real-data analysis for the birds example, Figure 6
 │ │ └── data/ # data
 │ │   ├── data.csv # Count data: species × locations/time 
-│ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format)
 │ │   ├── traits.csv # Species traits (e.g., mass, habitat)
-│ │   ├── grid1000.csv # Location-level covariates for 1,000 locations (habitat, temperature, ...)
-│ │   ├── grid10000.csv # Larger grid (10,000 locations) used for some robustness checks / predictions
-│ │   ├── Ctree.tre # Phylogenetic tree of bird species (Newick/tre format) grid10000.csv 
 │ │   └── birds_results.RData # results of the analysis.
 │ │ 
 │ └── immune/ # Immune response dataset (Section 4.2)
