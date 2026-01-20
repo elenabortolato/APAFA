@@ -1,13 +1,15 @@
 # APAFA
 **By E. Bortolato & A. Canale**
 
-This repository (https://github.com/elenabortolato/APAFA/tree/main) contains the code to reproduce simulations, figures, and real data analysis results from the paper "Adaptive Partition Factor Analysis" (APAFA) by Elena Bortolato and Antonio Canale (https://arxiv.org/html/2410.18939v2)
+The repository (https://github.com/elenabortolato/APAFA/tree/main) contains the code to reproduce simulations, figures, and real data analysis results from the paper "Adaptive Partition Factor Analysis" (APAFA) by Elena Bortolato and Antonio Canale (https://arxiv.org/html/2410.18939v2) accepted for publication in JASA (18/01/2026).
 
 The method is designed to fit Bayesian (multi-study) factor models, accommodating study-specific and shared components, finding adaptively group-specific structure and latent dimensions.
 
 To reproduce the results of Section 3 of the paper, go to the [Simulations](Simulations/Simulation_results.md) workflow. 
 To reproduce the results of the real data analysis of Section 4 of the paper, go to the [Birds workflow](Real_data/birds/birds.md) or the [Immune workflow](Real_data/immune/immune.md) in the [Real_Data](Real_data) folder. 
+
 Results contained in the Supplementary Materials are obtained by running the scritps in the [Supplementary](Supplementary) folder.
+
 
 A [vignette](vignette.md) describes how to fit APAFA on toy simulated data. The example runs in approximately 5 minutes.
 
